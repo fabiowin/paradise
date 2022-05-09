@@ -1,0 +1,64 @@
+version: "3"
+
+services:
+
+  paradise_nodejs:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: paradise_nodejs
+    container_name: paradise_nodejs
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      - NODE_ENV=$NODE_ENV
+      - MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD
+      - MYSQL_USER=$MYSQL_USER
+      - MYSQL_PASSWORD=$MYSQL_PASSWORD
+      - MYSQL_HOSTNAME=$MYSQL_HOST
+      - MYSQL_PORT=$MYSQL_PORT
+      - MYSQL_DATABASE=$MYSQL_DATABASE
+      - TIMEZONE=$TIMEZONE
+    ports:
+      - "3020:3020"
+    volumes:
+      - .:/home/node/app
+      - node_modules:/home/node/app/node_modules
+    networks:
+      - app-network
+    command: npm run dev
+  
+  paradise_db:
+    build:
+      context: ./database
+      dockerfile: Dockerfile    
+    image: paradise_db
+    container_name: paradise_db
+    restart: always
+    env_file: .env
+    environment:
+      - MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD
+      - TIMEZONE=$TIMEZONE
+    volumes:
+      - ./database:/docker-entrypoint-initdb.d
+      - ./database/data:/var/lib/mysql
+    networks:
+      - app-network    
+
+  paradise_adminer:
+    image: adminer
+    container_name: paradise_adminer
+    restart: always
+    ports: 
+      - 8088:8080    
+    networks:
+      - app-network    
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  database:
+  data:
+  node_modules:
