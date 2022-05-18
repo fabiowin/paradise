@@ -28,15 +28,16 @@ Fornecedor.init(
 		fornnume: {
 			type: DataTypes.STRING(10),
 		},
-		clienemail: {
+		fornemail: {
 			type: DataTypes.STRING(256),
 			allowNull: false,
 		},
 	},
 	{
 		sequelize: sequelize,
-		tableName: "fornecedore",
-		modelName: "Fornecedor"
+		tableName: "Fornecedor",
+		modelName: "Fornecedor",
+		timestamps: false
 	}
 );
 

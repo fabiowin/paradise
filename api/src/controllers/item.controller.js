@@ -1,16 +1,16 @@
-const clientRepository = require("../repositories/cliente.repository");
+const itemRepository = require("../repositories/item.repository");
 
 module.exports = {
  
     async getAll(req, res, next) {
         try {
             const queryParams = req.query;
-            const client = await clientRepository.findAll(queryParams);
-            if (!client || client.length === 0) {
+            const item = await itemRepository.findAll(queryParams);
+            if (!item || item.length === 0) {
                 res.status(204).end();
                 return;
             }
-            res.json(client);
+            res.json(item);
         } catch (error) {
             console.error(error);
         }
@@ -19,8 +19,8 @@ module.exports = {
     async create(req, res, next) {
         try {
             const postData = req.body;
-            const client = await clientRepository.create(postData);
-            res.status(201).json(client);
+            const item = await itemRepository.create(postData);
+            res.status(201).json(item);
         } catch (error) {
           console.error(error);
         }
@@ -29,12 +29,12 @@ module.exports = {
     async update(req, res, next) {
         try {
             const { id } = req.params;
-            const client = await clientRepository.findById(id);
-            if (!client) {
+            const item = await itemRepository.findById(id);
+            if (!item) {
                 console.log("not found");
                 return;
             }
-            const updated = await clientRepository.update(transaction, req.body);
+            const updated = await itemRepository.update(transaction, req.body);
             res.send(updated);
         } catch (error) {
           console.error(error);

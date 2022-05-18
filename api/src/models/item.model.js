@@ -1,16 +1,11 @@
 const { Model, DataTypes } = require("sequelize");
 const sequelize = require("../infra/database/database");
+const Venda = require("../models/sell.model");
+const Produto = require("../models/product.model");
 
 const { v4: uuidv4 } = require('uuid');
 
 class Item extends Model { }
-
-// Cliente.fields = [
-// 	"uuid",
-// 	"person_id",
-// 	"keycloak_id",
-// 	"enabled"
-// ];
 
 Item.init(
 	{
@@ -30,8 +25,9 @@ Item.init(
 	},
 	{
 		sequelize: sequelize,
-		tableName: "item",
-		modelName: "Item"
+		tableName: "Item",
+		modelName: "Item",
+		timestamps: false
 	}
 );
 
@@ -40,7 +36,7 @@ Item.belongsTo(Venda, {
 	allowNull: false
 });
 
-Item.benlongsTo(Produto, {
+Item.belongsTo(Produto, {
   foreignKey: "prodid",
   allowNull: false
 })

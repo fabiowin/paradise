@@ -1,16 +1,10 @@
 const { Model, DataTypes } = require("sequelize");
 const sequelize = require("../infra/database/database");
+const Fornecedor = require("../models/supplier.model");
 
 const { v4: uuidv4 } = require('uuid');
 
 class Produto extends Model { }
-
-// Cliente.fields = [
-// 	"uuid",
-// 	"person_id",
-// 	"keycloak_id",
-// 	"enabled"
-// ];
 
 Produto.init(
 	{
@@ -41,8 +35,9 @@ Produto.init(
 	},
 	{
 		sequelize: sequelize,
-		tableName: "produto",
-		modelName: "Produto"
+		tableName: "Produto",
+		modelName: "Produto",
+		timestamps: false
 	}
 );
 

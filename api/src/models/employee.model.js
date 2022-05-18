@@ -1,16 +1,7 @@
 const { Model, DataTypes } = require("sequelize");
 const sequelize = require("../infra/database/database");
 
-const { v4: uuidv4 } = require('uuid');
-
 class Funcionario extends Model { }
-
-// Cliente.fields = [
-// 	"uuid",
-// 	"person_id",
-// 	"keycloak_id",
-// 	"enabled"
-// ];
 
 Funcionario.init(
 	{
@@ -35,7 +26,7 @@ Funcionario.init(
 		funcsenha: {
 			type: DataTypes.STRING(40),
 		},
-    funcuser: {
+    funuser: {
       type: DataTypes.STRING(40),
     },
     funusuario: {
@@ -44,8 +35,9 @@ Funcionario.init(
 	},
 	{
 		sequelize: sequelize,
-		tableName: "funcionario",
-		modelName: "Funcionario"
+		tableName: "Funcionario",
+		modelName: "Funcionario",
+		timestamps: false
 	}
 );
 

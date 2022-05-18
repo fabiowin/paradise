@@ -1,16 +1,16 @@
 const { Op } = require("sequelize");
-const Cliente = require("../models/cliente.model");
+const Venda = require("../models/sell.model");
 
 module.exports = {
 
 	findAll(params) {
-		return Fornecedor.findAll({
+		return Venda.findAll({
 			where: params
 		})
 	},
 
 	findById(id, associations) {
-		return Fornecedor.findByPk(id, associations);
+		return Venda.findByPk(id, associations);
 	},
 
 	// findByName(title, person_id) {
@@ -35,10 +35,10 @@ module.exports = {
 	// },
 
 	create(data) {
-		return Fornecedor.create(data, { fields: Fornecedor.fields });
+		return Venda.create(data, { fields: Venda.fields });
 	},
 
-	update(fornecedor, data) {
-		return Fornecedor.update(data);
+	update(venda, data) {
+		return venda.update(data);
 	}
 };
