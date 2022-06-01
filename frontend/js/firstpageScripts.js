@@ -124,15 +124,15 @@ function loadRemoveFromCartEventListeners(removeFromCartIds) {
 
 
 $(document).ready(async function() {
+  await renderProducts();
 
   const loggedIn = JSON.parse(localStorage.getItem("loggedIn"));
   $('#profileName').text(loggedIn.username);
+  console.log(loggedIn);
 
 
 
 
 
 
-
-  await renderProducts();
 })

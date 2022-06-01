@@ -21,11 +21,11 @@ $(document).ready(function() {
       password: pass
     },
     function(data, status){
-      
+      console.log(status);
       if(data){
         loggedIn = data;
         console.log(loggedIn);
-        window.location.replace("http://localhost:5500/frontend/firstpage.html");
+        window.location.replace("http://localhost:5500/frontend/pages/firstpage.html");
         localStorage.setItem("loggedIn", JSON.stringify(loggedIn));
       }
       

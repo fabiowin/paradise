@@ -57,7 +57,7 @@ body {
 }
 
 .warning {
-  background-image: url("visual/bannerblack.png"); /* The image used */
+  background-image: url("../visual/bannerblack.png"); /* The image used */
   min-height: auto;
   background-position: center; /* Center the image */
   background-repeat: no-repeat; /* Do not repeat the image */
@@ -122,7 +122,7 @@ body {
 }
 
 .hero-image {
-  background-image: url("visual/bg.png");
+  background-image: url("../visual/bg.png");
   background-color: #cccccc;
   min-height: auto;
   background-position: center;
