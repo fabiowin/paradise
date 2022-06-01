@@ -149,7 +149,7 @@ $(document).ready(async function() {
         html += `
           <tr>
             <div class="d-flex align-items-center" style="display: inline-block; vertical-align:middle; padding: 3p; margin:4px">
-              <td style="width: 2%;"><a href="#" onclick="teste()"><img src="icons/beer-offer.png" alt="Remover produto" width="12px" style="margin: 0 0px; padding: 0;"></a></td>
+              <td style="width: 2%;"><a href="#"><img src="../assets/beer-offer.png" alt="Remover produto" width="12px" style="margin: 0 0px; padding: 0;"></a></td>
               <td style="width: 8%;"><span class="badge bg-success bg-opacity-10 text-success small">x ${product.cartQuantity}</span></td>
               <td style="width: 80%;"><h6 style="display: inline-block; font-size: 14px; margin: 0;">${product.prodnome}</h6></td>
               <td style="width: 10%;"><h6 style="font-size:12px ;display: inline-block; margin: 0 0 0 2px; padding: 0;">R$${product.prodpre * product.cartQuantity}</h6></td>
