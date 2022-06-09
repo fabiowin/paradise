@@ -13,26 +13,13 @@ module.exports = {
 		return Funcionario.findByPk(id, associations);
 	},
 
-	// findByName(title, person_id) {
-	// 	return Cliente.findOne({
-	// 		where: {
-	// 			title,
-	// 			person_id
-	// 		}
-	// 	});
-	// },
-
-	// findOtherWithSameName(title, person_id, id) {
-	// 	return Fliente.findOne({
-	// 		where: {
-	// 			id: {
-	// 				[Op.not]: id,
-	// 			},
-	// 			title,
-	// 			person_id
-	// 		}
-	// 	});
-	// },
+	findByEmail(funcemail) {
+		return Funcionario.findOne({
+			where: {
+				funcemail
+			}
+		});
+	},
 
 	create(data) {
 		return Funcionario.create(data, { fields: Funcionario.fields });

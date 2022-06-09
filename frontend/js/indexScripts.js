@@ -3,9 +3,6 @@ $(document).ready(function() {
   
   const profileName = $('#profile-name');
   
-  
-  
-  
   let loggedIn;
   
   

@@ -30,6 +30,7 @@ body {
   --myblue: #473BF0;
   --mypurple: #9b51e0;
   --myspecialblue: #256EFF;
+  --myspecialgreen: #45ddc0;
 }
 
 /*.theme-colors {
@@ -77,10 +78,23 @@ body {
   left: 0;
 }
 
+table{
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 4px;
+}
+
+tr:nth-child(even) {
+  background-color: #eee;
+}
+
 .btn-login {
   background-color: var(--myspecialblue); 
-  opacity: 0.8;
-  border: 2px solid var(--myspecialblue);
+  border: 2px solid white;
   color: white;
   padding: 15px 32px;
   text-align: center;
@@ -88,37 +102,101 @@ body {
   font-size: 14px;
   font-weight: 600;
   text-transform: uppercase;
+  transition: 0.5s;
 }
 
 .btn-login:hover {
-  background-color: var(--myspecialblue); 
-  opacity: 1;
-  background-color: transparent; 
-  opacity: 0.8;
-  border: 2px solid var(--myspecialblue);
-  color: var(--myspecialblue);
+  background-color: #3654f7;
+  border: 2px solid white;
+  color: white;
 }
 
 .btn-register {
   background-color: transparent; 
-  opacity: 0.8;
-  border: 2px solid var(--mypurple);
+  border: 2px solid white;
   color: var(--mypurple);
   padding: 15px 10px;
   text-align: center;
   text-decoration: none;
   font-size: 14px;
   font-weight: 600;
-  transition-duration: 0.5s;
   text-transform: uppercase;
+  transition: 0.5s;
 }
 
 .btn-register:hover {
   background-color: var(--mypurple); 
-  opacity: 1;
   color: white;
-  letter-spacing: 3px;
   
+}
+
+.btn-myprofile{
+  background-color: var(--myspecialblue); 
+  padding: 5px 5px;
+  border: 0 solid white;
+  color: white;
+  padding: auto auto;
+  text-align: center;
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  transition: 0.5s;
+}
+
+.btn-myprofile:hover{
+  background-color: var(--mywhite); 
+  color: var(--mypurple);
+  padding: 15px 10px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  transition: 0.5s;
+}
+
+.left-profile{
+  color: var(--myred);
+  text-decoration: none;
+  background-color: rgb(214, 64, 69, 20%);
+  padding: 2px 4px 4px 4px;
+}
+
+.left-profile:hover{
+  background-color: var(--myred);
+  color: white;
+}
+
+.right-profile{
+  color: var(--myspecialblue);
+  text-decoration: none;
+  background-color: rgb(37, 110, 255, 20%);
+  padding: 2px 4px 4px 4px;
+}
+
+.right-profile:hover{
+  background-color: #256EFF;
+  color: white;
+}
+
+.btn-register-2 {
+  background-color: var(--mypurple); 
+  border: 2px solid white;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  transition: 0.5s;
+}
+
+.btn-register-2:hover {
+  background-color: #7652e8;
+  border: 2px solid white;
+  color: white;
 }
 
 .hero-image {
@@ -182,11 +260,54 @@ body {
   font-weight: 600;
 }
 
-.link-meunusup:active {
-  color: var(--mygold);
+.link-menupainel {
+  color: var(--myspecialgray);
+  text-decoration: none;
+  transition: 0.1s;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 14px;
+  padding-bottom: 10px; 
 }
 
-.active{
+.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
+  color: var(--mypurple) !important;
+  background-color: #fff;
+  border: 2px solid transparent !important;
+}
+
+.nav-tabs .nav-link {
+  margin-bottom: 0 !important;
+  color: var(--myblack);
+  text-decoration: none;
+  transition: 0.25s;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 14px;
+  border: 2px solid transparent !important;
+}
+
+.nav-link:hover {
+  color: var(--mypurple) !important;
+  text-decoration: none;
+  border: 2px solid transparent !important;
+  border-bottom: 2px solid var(--mypurple) !important;
+}
+
+.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
+    color: var(--mypurple) !important;
+    background-color: #fff;
+    border: 2px solid transparent !important;
+    border-bottom: 2px solid var(--mypurple) !important;
+}
+
+.link-menupainel:hover {
+  color: var(--mypurple);
+  border-bottom: 2px solid var(--mypurple); 
+  font-weight: 600;
+}
+
+.link-meunusup:active {
   color: var(--mygold);
 }
 
@@ -260,6 +381,10 @@ body {
 
 .bg-mydark {
   background-color: var(--myblack);
+}
+
+.bg-mylight {
+  background-color: white;
 }
 
 ::selection {
