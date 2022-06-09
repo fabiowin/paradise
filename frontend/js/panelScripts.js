@@ -1,3 +1,5 @@
+const api = 'http://localhost:3020';
+
 let cart;
 let cartKeys;
 
@@ -37,7 +39,7 @@ function renderCart() {
 
 async function renderProducts() {
   let html;
-  await $.get("http://localhost:3020/produto", function(data, status) {
+  await $.get(`${api}/produto`, function(data, status) {
     
     data.forEach(product => {
       html += `
@@ -94,7 +96,7 @@ async function renderProducts() {
 
 async function renderEmployees() {
   let html;
-  await $.get("http://localhost:3020/funcionario", function(data, status) {
+  await $.get(`${api}/funcionario`, function(data, status) {
     
     data.forEach(employee => {
       console.log(employee);
@@ -144,7 +146,7 @@ async function renderEmployees() {
 
 async function renderSuppliers() {
   let html;
-  await $.get("http://localhost:3020/fornecedor", function(data, status) {
+  await $.get(`${api}/fornecedor`, function(data, status) {
     
     data.forEach(supplier => {
       html += `
@@ -191,6 +193,58 @@ async function renderSuppliers() {
   $('#suppliersTable').html(html);
 }
 
+async function renderClients() {
+  let html;
+  await $.get(`${api}/cliente`, function(data, status) {
+    data.forEach(client => {
+      console.log(client);
+      html += `
+        <tr>
+          <th scope="row">${client.clienid}</th>
+          <td>${client.clienome}</td>
+          <td>${client.clienendere}</td>
+          <td>${client.clienumero}</td>
+          <td>${client.clienemail}</td>
+        </tr>
+      `
+    });
+
+  });
+
+  $('#clientsTable').html(html);
+}
+
+async function handleCreateProduct(event) {
+  event.preventDefault();
+  const prodnome = $('#newProductName').val();
+  const prodqtd  = parseInt($('#newProductAmount').val());
+  const prodesc  = $('#newProductDescription').val();
+  const fornid   = parseInt($('#newProductSupplier').val());
+  const prodpre  = parseFloat($('#newProductPrice').val());
+
+  const postData = 
+  {
+    prodnome: prodnome,
+    prodqtd: prodqtd,
+    prodesc: prodesc,
+    fornid: fornid,
+    prodpre: prodpre,
+    prodfoto: '../assets/guarana'
+  }
+
+  let request = $.post(`${api}/produto`, postData);
+  
+  request.done(function(data, status) {
+    if (data) {
+      alert('O produto foi criado!');
+    } else {
+      alert('Ocorreu um erro ao criar o produto.');
+    }
+  })
+
+  
+}
+
 $(document).ready(function() {
 
   cart = JSON.parse(localStorage.getItem("cart"));
@@ -217,5 +271,13 @@ $(document).ready(function() {
   $('#nav-fornecedor-tab').on('click', () => {
     renderSuppliers();
   })
+
+  $('#nav-cliente-tab').on('click', () => {
+    renderClients();
+  })
+
+  $('#createProductForm').submit(async function (event) {
+    await handleCreateProduct(event);
+  });
 
 });

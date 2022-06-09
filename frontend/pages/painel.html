@@ -509,18 +509,18 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                           </div>
                           <div class="modal-body">
-                            <form class="needs-validation" novalidate="">
+                            <form class="needs-validation" novalidate="" id="createProductForm">
                               <div class="row">
                                 <div class="col-md-6 mb-3">
                                   <label for="productName">Nome do Produto</label>
-                                  <input type="text" class="form-control" id="productName" placeholder="" value="" required="">
+                                  <input type="text" class="form-control" id="newProductName" placeholder="" value="" required="">
                                   <div class="invalid-feedback">
                                     É preciso inserir seu nome para concluir o agendamento.
                                   </div>
                                 </div>
                                 <div class="col-md-6 mb-3">
                                   <label for="productAmount">Qtd. Em Estoque</label>
-                                  <input type="number" class="form-control" id="productAmount" placeholder="" value="" required="" >
+                                  <input type="number" class="form-control" id="newProductAmount" placeholder="" value="" required="" >
                                   <div class="invalid-feedback">
                                     É preciso inserir seu sobrenome para concluir o agendamento.
                                   </div>
@@ -528,7 +528,7 @@
                               </div>
                               <div class="mb-3">
                                 <label for="productDescription">Descrição</label>
-                                <input type="text" class="form-control" id="productDescription"
+                                <input type="text" class="form-control" id="newProductDescription"
                                   placeholder="Descrição do Produto" required="">
                                 <div class="invalid-feedback">
                                   É preciso inserir o endereço para concluir o agendamento.
@@ -538,22 +538,22 @@
                                 <div class="col-md-8 mb-3">
                                   <div class="mb-3">
                                     <label for="productSupplier">Id do Fornecedor<span class="text-muted"></span></label>
-                                    <input type="number" class="form-control" id="productSupplier" >
+                                    <input type="number" class="form-control" id="newProductSupplier" >
                                   </div>
                                 </div>
                                 <div class="col-md-4">
                                   <label for="zip">Valor</label>
-                                  <input type="number" class="form-control" id="productPrice" placeholder="15.90" required="">
+                                  <input type="number" class="form-control" id="newProductPrice" placeholder="15.90" required="">
                                   <div class="invalid-feedback">
                                     É preciso inserir o CEP para concluir o agendamento.
                                   </div>
                                 </div>
                               </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                <button type="submit" class="btn btn-primary" >Cadastrar Produto</button>
+                              </div>
                             </form>
-                          </div>
-                          <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                            <button type="button" class="btn btn-primary">Cadastrar Produto</button>
                           </div>
                         </div>
                       </div>
@@ -855,9 +855,11 @@
                       <th scope="col">ID</th>
                       <th scope="col">Nome</th>
                       <th scope="col">Endereço</th>
+                      <th scope="col">Número</th>
+                      <th scope="col">Email</th>
                     </tr>
                   </thead>
-                  <tbody>
+                  <tbody id="clientsTable">
                     <tr>
                       <th scope="row">1</th>
                       <td>Ezequiel Pereira da Silva</td>

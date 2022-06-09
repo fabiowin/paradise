@@ -1,3 +1,4 @@
+const bcrypt = require("bcrypt");
 const clientRepository = require("../repositories/client.repository");
 
 module.exports = {
@@ -47,7 +48,15 @@ module.exports = {
 
     async create(req, res, next) {
         try {
+            const { clienemail, cliensenha } = req.body;
             const postData = req.body;
+
+            const existingClient = await clientRepository.findByEmail(clienemail);
+            if (existingClient) return res.status(400).json({ message: "Client already exists." });
+
+            postData.cliensenha = await bcrypt.hash(cliensenha, 8);
+
+
             const client = await clientRepository.create(postData);
             res.status(201).json(client);
         } catch (error) {
