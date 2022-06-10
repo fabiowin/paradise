@@ -498,14 +498,14 @@
                           d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z">
                         </path>
                       </svg>
-                      Adicionar Produto
+                      Cadastrar Produto
                     </button>
                     <!-- Modal -->
                     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                       <div class="modal-dialog">
                         <div class="modal-content">
                           <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Adicionar Produto</h5>
+                            <h5 class="modal-title" id="exampleModalLabel">Cadastrar Produto</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                           </div>
                           <div class="modal-body">
@@ -551,7 +551,7 @@
                               </div>
                               <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                                <button type="submit" class="btn btn-primary" >Cadastrar Produto</button>
+                                <button type="submit" class="btn btn-primary" >Cadastrar</button>
                               </div>
                             </form>
                           </div>
@@ -662,51 +662,68 @@
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                               </div>
                               <div class="modal-body">
-                                <form class="needs-validation" novalidate="">
+                                <form class="needs-validation" novalidate="" id="createEmployeeForm">
                                   <div class="row">
-                                    <div class="col-md-6 mb-3">
-                                      <label for="firstName">Funcionário</label>
-                                      <input type="text" class="form-control" id="firstName" placeholder="" value="" required="">
-                                      <div class="invalid-feedback">
-                                        É preciso inserir seu nome para concluir o agendamento.
-                                      </div>
-                                    </div>
-                                    <div class="col-md-6 mb-3">
-                                      <label for="lastName">Número</label>
-                                      <input type="text" class="form-control" id="lastName" placeholder="" value="" required="">
-                                      <div class="invalid-feedback">
-                                        É preciso inserir seu sobrenome para concluir o agendamento.
-                                      </div>
-                                    </div>
+                                          <div class="col-md-6 mb-3">
+                                            <label for="employeeName">Nome</label>
+                                            <input type="text" class="form-control" name="newEmployeeName" placeholder="João da Silva" value="" required="">
+                                            <div class="invalid-feedback">
+                                              É preciso inserir seu nome para concluir o agendamento.
+                                            </div>
+                                          </div>
+                                          <div class="col-md-6 mb-3">
+                                            <label for="employeeNumber">Telefone</label>
+                                            <input type="text" class="form-control" name="newEmployeeNumber" placeholder="(14) 99123-4567" value="" required="">
+                                            <div class="invalid-feedback">
+                                              É preciso inserir seu telefone para concluir o agendamento.
+                                            </div>
+                                          </div>
                                   </div>
-                                  <div class="mb-3">
-                                    <label for="address">Endereço</label>
-                                    <input type="text" class="form-control" id="address"
-                                      placeholder="Descrição do Produto" required="">
-                                    <div class="invalid-feedback">
-                                      É preciso inserir o endereço para concluir o agendamento.
-                                    </div>
-                                  </div>
-                                  <div class="row">
-                                    <div class="col-md-8 mb-3">
-                                      <div class="mb-3">
-                                        <label for="address2">Usuário<span class="text-muted"> (Opcional)</span></label>
-                                        <input type="text" class="form-control" id="address2" placeholder="Ap 18 Bloco 04">
-                                      </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                      <label for="zip">Senha</label>
-                                      <input type="datetime" class="form-control" id="datetime" placeholder="30/06/2022" required="">
-                                      <div class="invalid-feedback">
-                                        É preciso inserir o CEP para concluir o agendamento.
-                                      </div>
-                                    </div>
-                                  </div>
+                                        <div class="mb-3">
+                                          <label for="employeeAddress">Endereço</label>
+                                          <input type="text" class="form-control" name="newEmployeeAddress" placeholder="Ap 18 Bloco 04" required="">
+                                          <div class="invalid-feedback">
+                                            É preciso inserir o endereço para concluir o agendamento.
+                                          </div>
+                                        </div>
+                                        <div class="mb-3">
+                                          <label for="employeeEmail">Email</label>
+                                          <input type="text" class="form-control" name="newEmployeeEmail" placeholder="joao.silva@paradise.com.br" required="">
+                                          <div class="invalid-feedback">
+                                            É preciso inserir o endereço para concluir o agendamento.
+                                          </div>
+                                        </div>
+                                        <div class="row">
+                                          <div class="col-md-8 mb-3">
+                                            <div class="mb-3">
+                                              <label for="employeeUser">Usuário<span class="text-muted"></span></label>
+                                              <input type="text" class="form-control" name="newEmployeeUser" placeholder="joao.silva">
+                                            </div>
+                                          </div>
+                                          <div class="col-md-4">
+                                            <label for="zip">Senha</label>
+                                            <input type="password" class="form-control" name="newEmployeePassword" placeholder="********" required="">
+                                            <div class="invalid-feedback">
+                                              É preciso inserir o CEP para concluir o agendamento.
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="mb-3">
+                                          <label class="form-label">Permissão</label>
+                                          <select class="form-select" aria-label="Default select example" name="newEmpoloyeePermission">
+                                            <option selected>Selecione a permissão do funcionário</option>
+                                            <option value="1">Adminitrador</option>
+                                            <option value="2">Funcionário Padrão</option>
+                                          </select>
+                                          <div class="invalid-feedback">
+                                            É preciso inserir o endereço para concluir o agendamento.
+                                          </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                          <button type="submit" class="btn btn-primary">Cadastrar Funcionário</button>
+                                        </div>
                                 </form>
-                              </div>
-                              <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                                <button type="button" class="btn btn-primary">Cadastrar Produto</button>
                               </div>
                             </div>
                           </div>
@@ -788,22 +805,22 @@
                           <div class="modal-dialog">
                             <div class="modal-content">
                               <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                <h5 class="modal-title" id="exampleModalLabel">Adicionar Fornecedor</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                               </div>
                               <div class="modal-body">
-                                <form class="needs-validation" novalidate="">
+                                <form class="needs-validation" novalidate="" id="createSupplierForm">
                                   <div class="row">
                                     <div class="col-md-6 mb-3">
-                                      <label for="firstName">Fornecedor</label>
-                                      <input type="text" class="form-control" id="firstName" placeholder="" value="" required="">
+                                      <label for="firstName">Nome do Fornecedor</label>
+                                      <input type="text" class="form-control" name="newSupplierName" placeholder="Nome do fornecedor" value="" required="">
                                       <div class="invalid-feedback">
                                         É preciso inserir seu nome para concluir o agendamento.
                                       </div>
                                     </div>
                                     <div class="col-md-6 mb-3">
-                                      <label for="lastName">E-mail</label>
-                                      <input type="text" class="form-control" id="lastName" placeholder="" value="" required="">
+                                      <label for="newSupplierNumber">Telefone</label>
+                                      <input type="text" class="form-control" name="newSupplierNumber" placeholder="Telefone do fornecedor" value="" required="">
                                       <div class="invalid-feedback">
                                         É preciso inserir seu sobrenome para concluir o agendamento.
                                       </div>
@@ -811,32 +828,23 @@
                                   </div>
                                   <div class="mb-3">
                                     <label for="address">Endereço</label>
-                                    <input type="text" class="form-control" id="address"
-                                      placeholder="Descrição do Produto" required="">
+                                    <input type="text" class="form-control" name="newSupplierAddress" placeholder="Endereço do fornecedor" required="">
                                     <div class="invalid-feedback">
                                       É preciso inserir o endereço para concluir o agendamento.
                                     </div>
                                   </div>
-                                  <div class="row">
-                                    <div class="col-md-8 mb-3">
-                                      <div class="mb-3">
-                                        <label for="address2">E-mail<span class="text-muted"> (Opcional)</span></label>
-                                        <input type="text" class="form-control" id="address2" placeholder="Ap 18 Bloco 04">
-                                      </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                      <label for="zip">Número</label>
-                                      <input type="datetime" class="form-control" id="datetime" placeholder="30/06/2022" required="">
-                                      <div class="invalid-feedback">
-                                        É preciso inserir o CEP para concluir o agendamento.
-                                      </div>
+                                  <div class="mb-3">
+                                    <label for="newSupplierEmail">E-mail</label>
+                                    <input type="text" class="form-control" name="newSupplierEmail" placeholder="Email do fornecedor" required="">
+                                    <div class="invalid-feedback">
+                                      É preciso inserir o endereço para concluir o agendamento.
                                     </div>
                                   </div>
+                                  <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                    <button type="submit" class="btn btn-primary">Cadastrar fornecedor</button>
+                                  </div>
                                 </form>
-                              </div>
-                              <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                                <button type="button" class="btn btn-primary">Cadastrar Produto</button>
                               </div>
                             </div>
                           </div>

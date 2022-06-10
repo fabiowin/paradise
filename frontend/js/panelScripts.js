@@ -241,8 +241,69 @@ async function handleCreateProduct(event) {
       alert('Ocorreu um erro ao criar o produto.');
     }
   })
-
   
+}
+
+async function handleCreateEmployee(event) {
+  event.preventDefault();
+
+  const createEmployeeForm = $('#createEmployeeForm');
+
+  const funcnome = createEmployeeForm.find("input[name='newEmployeeName']").val();
+  const funcendere = createEmployeeForm.find("input[name='newEmployeeAddress']").val();
+  const funcnumero = createEmployeeForm.find("input[name='newEmployeeNumber']").val();
+  const funcemail = createEmployeeForm.find("input[name='newEmployeeEmail']").val();
+  const funuser = createEmployeeForm.find("input[name='newEmployeeUser']").val();
+  const funcsenha = createEmployeeForm.find("input[name='newEmployeePassword']").val();
+  const funusuario = parseInt(createEmployeeForm.find("select[name='newEmpoloyeePermission']").val());
+
+  const postData = {
+    funcnome: funcnome,
+    funcendere: funcendere,
+    funcnumero: funcnumero,
+    funcemail: funcemail,
+    funuser: funuser,
+    funcsenha: funcsenha,
+    funusuario: funusuario
+  }
+
+  let request = $.post(`${api}/funcionario`, postData);
+  
+  request.done(function(data, status) {
+    if (data) {
+      alert('O funcionário foi criado!');
+    } else {
+      alert('Ocorreu um erro ao criar o funcionário.');
+    }
+  })
+}
+
+async function handleCreateSupplier(event) {
+  event.preventDefault();
+
+  const createSupplierForm = $('#createSupplierForm');
+
+  const fornnome = createSupplierForm.find("input[name='newSupplierName']").val();
+  const fornende = createSupplierForm.find("input[name='newSupplierAddress']").val();
+  const fornnume = createSupplierForm.find("input[name='newSupplierNumber']").val();
+  const fornemail = createSupplierForm.find("input[name='newSupplierEmail']").val();
+
+  const postData = {
+    fornnome: fornnome,
+    fornende: fornende,
+    fornnume: fornnume,
+    fornemail: fornemail
+  }
+
+  let request = $.post(`${api}/fornecedor`, postData);
+  
+  request.done(function(data, status) {
+    if (data) {
+      alert('O fornecedor foi criado!');
+    } else {
+      alert('Ocorreu um erro ao criar o fornecedor.');
+    }
+  })
 }
 
 $(document).ready(function() {
@@ -276,8 +337,18 @@ $(document).ready(function() {
     renderClients();
   })
 
+/* -------------- Create Forms --------------  */
+
   $('#createProductForm').submit(async function (event) {
     await handleCreateProduct(event);
+  });
+
+  $('#createEmployeeForm').submit(async function(event) {
+    await handleCreateEmployee(event);
+  });
+
+  $('#createSupplierForm').submit(async function(event) {
+    await handleCreateSupplier(event);
   });
 
 });

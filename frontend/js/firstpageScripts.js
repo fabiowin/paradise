@@ -132,6 +132,10 @@ $(document).ready(async function() {
   $('#cartProfileName').text(loggedIn.username);
   $('#cartProfileEmail').text(loggedIn.email);
 
+  $('#logoutButton').on('click', () => {
+    localStorage.clear();
+  })
+
   $('#cartCheckout').on('click', () => {
     localStorage.setItem("cart", JSON.stringify(productsObject));
 
