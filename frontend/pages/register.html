@@ -1,0 +1,184 @@
+<!-- iamVici // -->
+
+<!doctype html>
+<html lang="pt-br">
+
+<head>
+  <script src="../js/jquery-3.6.0.min.js"></script>
+  <script src="../js/registerScripts.js"></script>
+  <!-- Tags padrões -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Arquivo css -->
+  <link href="../css/badass.css" rel="stylesheet">
+
+  <!-- Bootstrap+CSS -->
+  <script src="../js/bootstrap/bootstrap.min.js"></script>
+  <link href="../css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Fontes -->
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;900&family=Outfit:wght@100;400;800&display=swap');
+  </style>
+
+  <!-- Nome do site -->
+  <title>Paradise - Register Page</title>
+
+</head>
+
+<style>
+
+  @font-face {
+    font-family: evangelion;
+    src: url(../fonts/evangelion.ttf);
+  }
+
+  .banner-image {
+    background-image: url('../visual/banner.jpg');
+    background-size: cover;
+  }
+
+</style>
+
+<body class="warning d-flex full-height"> 
+  <div class="container vertical-align">
+
+    <div class="row">
+      <img src="../visual/logo.png" style="margin-bottom: 80px;">
+        <div class="col-md-7">
+          <h1 class="display-4 fw-bold lh-1 mb-3 text-white">Bem-vindo ao Paradise</h1>
+          <hr class="col-lg-10" style="color:white; height:2px; opacity: 1; ">
+          <p class="col-lg-10 fs-4 text-white" style="margin: 10px 0; text-align: justify;">Nós somos um bar moderno no centro da cidade de Tokyo. <br><br>Temos a melhor recepção e os drinks da região. Venha visitar o verdadeiro paraíso de sexta-feira chamado PARADISE.</p>
+        </div>
+        <div class="col-md-5">
+          <div class="bg-light" style="display: flex; justify-content: center; border-radius: 10px;">
+            <div class="" style="padding: 34px;">
+
+              <form id="createClientForm">
+                <div class="form-outline mb-1">
+                  <input name="newClientName" type="text" id="form6Example5" class="form-control" />
+                  <label class="form-label" for="form6Example5">Nome</label>
+                </div>
+
+                <div class="row mb-1">
+                  <div class="col">
+                    <div class="form-outline">
+                      <input name="newClientUser" type="text" id="form6Example2" class="form-control" />
+                      <label class="form-label" for="form6Example2">Usuário</label>
+                    </div>
+                  </div>
+                  <div class="col">
+                    <div class="form-outline">
+                      <input name="newClientDate" type="text" id="form6Example1" class="form-control" />
+                      <label class="form-label" for="form6Example1">Data de nascimento</label>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="form-outline mb-1">
+                  <input name="newClientPassword" type="password" id="form6Example5" class="form-control" />
+                  <label class="form-label" for="form6Example5">Senha</label>
+                </div>
+
+                 <!-- Email input -->
+                 <div class="form-outline mb-1">
+                   <input name="newClientEmail" type="email" id="form6Example5" class="form-control" />
+                   <label class="form-label" for="form6Example5">Email</label>
+                 </div>
+  
+                <!-- Text input -->
+                <div class="form-outline mb-1">
+                  <input name="newClientAddress" type="text" id="form6Example4" class="form-control" />
+                  <label class="form-label" for="form6Example4">Endereço</label>
+                </div>
+              
+  
+              
+                <!-- Number input -->
+                <div class="form-outline mb-1">
+                  <input name="newClientNumber" type="tel" id="form6Example6" maxlength="14" class="form-control" />
+                  <label class="form-label" for="form6Example6">Telefone</label>
+                </div>
+              
+                <!-- Checkbox -->
+                <div class="form-check d-flex">
+                  <input class="form-check-input me-2" type="checkbox" value="" id="form6Example8" checked />
+                  <label class="form-check-label text-muted" for="form6Example8"> Você aceita nossos <a href="#" style="text-decoration: none;">termos de uso</a>.</small></label>
+                </div>
+                <hr>
+                <div class="row">
+                  <div class="col-md-12">
+                    <a><button class="btn-register-2" style="width: 100% !important;"  type="submit">Registrar</button></a>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <!--Rodapé Fixo-->
+
+
+
+  <!-- Optional JavaScript; choose one of the two! -->
+
+  <!-- Option 1: Bootstrap Bundle with Popper -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+    crossorigin="anonymous"></script>
+  <script src="../js/bootstrap/bootstrap.min.js"></script>
+  <script type="text/javascript">
+    var nav = document.querySelector('nav');
+
+    window.addEventListener('scroll', function () {
+      if (window.pageYOffset > 100) {
+        nav.classList.add('bg-mydark', 'shadow');
+      } else {
+        nav.classList.remove('bg-mydark', 'shadow',);
+      }
+    });
+
+
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+      return new bootstrap.Tooltip(tooltipTriggerEl)
+    })
+
+
+
+  </script>
+
+  <!-- Option 2: Separate Popper and Bootstrap JS -->
+  <!--
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+    -->
+</body>
+
+</html>
