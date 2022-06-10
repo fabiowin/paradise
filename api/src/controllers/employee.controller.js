@@ -17,6 +17,22 @@ module.exports = {
         }
     },
 
+    async getOne(req, res, next) {
+        try {
+            const { funcid } = req.query;
+            console.log(id);
+            const found = await employeeRepository.findById(funcid);
+            if (found) {
+                res.status(201).json(found);
+                return;
+            }
+            console.log('erro');
+            return;
+        } catch (error) {
+            console.error(error);
+        }
+    },
+
     async create(req, res, next) {
         try {
             const { funcemail, funcsenha } = req.body;
@@ -36,13 +52,13 @@ module.exports = {
 
     async update(req, res, next) {
         try {
-            const { id } = req.params;
-            const employee = await employeeRepository.findById(id);
+            const { funcid } = req.params;
+            const employee = await employeeRepository.findById(funcid);
             if (!employee) {
                 console.log("not found");
                 return;
             }
-            const updated = await employeeRepository.update(transaction, req.body);
+            const updated = await employeeRepository.update(employee, req.body);
             res.send(updated);
         } catch (error) {
           console.error(error);

@@ -155,6 +155,7 @@ function renderUserPermission() {
 async function renderProducts() {
   let html;
   await $.get(`${api}/produto`, function(data, status) {
+    editButtonIds = [];
     
     data.forEach(product => {
       editButtonIds.push(`product${product.prodid}`);
@@ -302,8 +303,10 @@ async function renderEmployees() {
   let html;
   await $.get(`${api}/funcionario`, function(data, status) {
     
+    editButtonIds = []
+
     data.forEach(employee => {
-      console.log(employee);
+      editButtonIds.push(`employee${employee.funcid}`);
       html += `
         <tr>
         <th scope="row">${employee.funcid}</th>
@@ -312,7 +315,7 @@ async function renderEmployees() {
         <td>${employee.funcnumero}</td>
         <td>${employee.funuser}</td>
         <td>
-            <button type="button" class="btn btn-outline-secondary"  data-bs-toggle="modal" data-bs-target="#exampleModal2">
+            <button id=employee${employee.funcid} type="button" class="btn btn-outline-secondary"  data-bs-toggle="modal" data-bs-target="#exampleModal2">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                 class="bi bi-pencil-square" viewBox="0 0 16 16">
                 <path
@@ -351,6 +354,73 @@ async function renderEmployees() {
 async function handleCreateEmployee(event) {
   event.preventDefault();
   
+  const postData = getEmployeeModalInputs();
+
+  let request = $.post(`${api}/funcionario`, postData);
+  
+  request.done(function(data, status) {
+    if (data) {
+      alert('O funcionário foi criado!');
+    } else {
+      alert('Ocorreu um erro ao criar o funcionário.');
+    }
+  })
+}
+
+async function handleUpdateEmployee() {
+  const postData = getEmployeeModalInputs();
+  
+  delete postData.funcsenha;
+  console.log(postData);
+
+  let request = 
+    $.ajax({
+      url: `${api}/funcionario/${currentEditingId}`,
+      type: 'PUT',
+      data: postData
+    })
+
+  request.done(function(data, status) {
+    if (data) {
+      alert('O funcionario foi atualizado!');
+    } else {
+      alert('Ocorreu um erro ao atualizar o funcionario.');
+    }
+  })
+}
+
+async function openEditEmployeeModal(id) {
+  $('#finishCreateEmployee').hide();
+  $('#finishUpdateEmployee').show();
+
+  const createEmployeeForm = $('#createEmployeeForm');
+
+  await $.get(`${api}/funcionario/?funcid=${id}`, function(data, status) {
+    const employee = data[0];
+
+    createEmployeeForm.find("input[name='newEmployeeName']").val(employee.funcnome);
+    createEmployeeForm.find("input[name='newEmployeeNumber']").val(employee.funcnumero);
+    createEmployeeForm.find("input[name='newEmployeeAddress']").val(employee.funcendere);
+    createEmployeeForm.find("input[name='newEmployeeEmail']").val(employee.funcemail);
+    createEmployeeForm.find("input[name='newEmployeeUser']").val(employee.funuser);
+    createEmployeeForm.find("input[name='newEmployeePassword']").prop('disabled', 'true');
+    createEmployeeForm.find("select[name='newEmpoloyeePermission']").val(employee.funusuario);
+
+  });
+
+}
+
+function addEmployeeEditModalButtonEventListeners() {
+  editButtonIds.forEach(id => {
+    const employeeId = parseInt(id.match(/\d+/)[0]);
+    $(`#${id}`).on('click', () => {
+      currentEditingId = employeeId;
+      openEditEmployeeModal(employeeId);
+    })
+  })
+}
+
+function getEmployeeModalInputs() {
   const createEmployeeForm = $('#createEmployeeForm');
 
   const funcnome = createEmployeeForm.find("input[name='newEmployeeName']").val();
@@ -370,18 +440,9 @@ async function handleCreateEmployee(event) {
     funcsenha: funcsenha,
     funusuario: funusuario
   }
-  
-  let request = $.post(`${api}/funcionario`, postData);
-  
-  request.done(function(data, status) {
-    if (data) {
-      alert('O funcionário foi criado!');
-    } else {
-      alert('Ocorreu um erro ao criar o funcionário.');
-    }
-  })
-}
 
+  return postData;
+}
 
 /* ---------- Supplier Functions ---------- */
 
@@ -508,8 +569,11 @@ $(document).ready(function() {
       });
   });
 
-  $('#nav-funcionario-tab').on('click', () => {
-    renderEmployees();
+  $('#nav-funcionario-tab').on('click', async () => {
+    await renderEmployees()
+      .then(() => {
+        addEmployeeEditModalButtonEventListeners();
+      })
   });
 
   $('#nav-fornecedor-tab').on('click', () => {

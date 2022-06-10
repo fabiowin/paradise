@@ -10,10 +10,10 @@ const router = express.Router({ mergeParams: true });
 
 router.get('/', controller.getAll);
 
-// router.get('/:id', controller.getOne);
+router.get('/:funcid', controller.getOne);
 
 router.post('/', employeeValidation, validator, controller.create);
 
-router.put('/:id', employeeValidation, validator, controller.update);
+router.put('/:funcid', employeeValidation, validator, controller.update);
 
 module.exports = router;
