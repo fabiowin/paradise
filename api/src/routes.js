@@ -4,8 +4,13 @@ const employeeRoutes = require("./routes/employee.route");
 const productRoutes = require("./routes/product.route");
 const sellRoutes = require("./routes/sell.route");
 const itemRoutes = require("./routes/item.route");
+const authRoutes = require("./auth/routes/auth.routes");
 
 const routes = [
+    {
+        route: "/auth",
+        router: authRoutes
+    },
     {
         route: "/cliente",
         router: clientRoutes

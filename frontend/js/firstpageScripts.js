@@ -127,10 +127,10 @@ function loadRemoveFromCartEventListeners(removeFromCartIds) {
 $(document).ready(async function() {
   await renderProducts();
 
-  const loggedIn = JSON.parse(localStorage.getItem("loggedIn"));
-  $('#profileName').text(loggedIn.username);
-  $('#cartProfileName').text(loggedIn.username);
-  $('#cartProfileEmail').text(loggedIn.email);
+  const profile = JSON.parse(localStorage.getItem("profile"));
+  $('#profileName').text(profile.result.clienome);
+  $('#cartProfileName').text(profile.result.clienome);
+  $('#cartProfileEmail').text(profile.result.clienemail);
 
   $('#logoutButton').on('click', () => {
     localStorage.clear();

@@ -1,4 +1,6 @@
 const bcrypt = require("bcrypt");
+const jwt = require('jsonwebtoken');
+require('dotenv').config();
 const clientRepository = require("../repositories/client.repository");
 
 module.exports = {

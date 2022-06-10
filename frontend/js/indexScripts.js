@@ -12,21 +12,22 @@ $(document).ready(function() {
     const user = $('#floatingInput').val();
     const pass = $('#floatingPassword').val();
     
-    $.post("http://localhost:3020/api/auth/signin",
+    $.post("http://localhost:3020/auth/signin",
     {
-      username: user,
-      password: pass
+      clienemail: user,
+      cliensenha: pass
     },
     function(data, status){
       console.log(status);
       if(data){
-        loggedIn = data;
-        console.log(loggedIn);
+        console.log(data);
+        localStorage.setItem('profile', JSON.stringify(data));
         window.location.replace("http://localhost:5500/frontend/pages/firstpage.html");
-        localStorage.setItem("loggedIn", JSON.stringify(loggedIn));
       }
-      
-    });
+    })
+      .fail(function() {
+        alert("E-mail ou senha inválidos!")
+      })
     
     
     

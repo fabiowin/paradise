@@ -1,7 +1,12 @@
 const api = 'http://localhost:3020';
 
+let currentEditingId;
 let cart;
 let cartKeys;
+let profile;
+let editButtonIds = [];
+
+/* ----------- Page Functions -------------- */
 
 function renderCart() {
   let totalPrice = 0;
@@ -37,11 +42,122 @@ function renderCart() {
   
 }
 
+function renderUserPermission() {
+  let html;
+
+  
+  $('#panelProfileBackgroundColor').css({"backgroud-color": "var(--mybluecyan)", "min-height": "100px", "border-radius": "5px 5px 0 0"});
+  
+  if (profile.result.funusuario) {
+      switch (profile.result.funusuario) {
+        case "1":
+            html = `
+              <div class="w-100" style="background-color: var(--myred); min-height: 100px; border-radius: 5px 5px 0 0;"></div>
+                <div class="text-center padding: 20px;">
+                  <img src="../assets/profile-picture.png" alt="mdo" width="120" height="120" class="rounded-circle avatar"
+                    style="margin-top: -60px; border: 4px solid white">
+                  <h3 style="margin: 10px 0 0 0;" >${profile.result.funcnome}</h3>
+                  <img src="../icons/badge-adm.png" style="display: inline-block;"><span id=""
+                    style="text-transform: uppercase; font-size: 13px;">Administrador</span>
+                  <hr style="color: var(--myred); height: 2px; opacity: 100%; width: 20%; margin-left: 40%;">
+                </div>
+                <div style="padding: 0 20px;">
+                  <h6
+                    style="color: #707070; font-size: 11px; font-weight: bold; text-transform: uppercase; margin-bottom: 2px;">
+                    E-mail</h6>
+                  <p style="font-size: 13px;" >${profile.result.funcemail}</p>
+                  <hr>
+                </div>
+                <div style="padding: 0 20px;">
+                  <h6 style="color: #707070; font-size: 11px; font-weight: bold; text-transform: uppercase;">Sobre</h6>
+                  <p style="font-size: 13px;">Until recently, the prevailing view assumed lorem ipsum was born as a nonsense
+                    text. <br><br>“It's not Latin, though it looks like it, and it actually says nothing,” Before & After
+                    magazine answered a curious reader, “Its ‘words’ loosely approximate the frequency with which letters occur
+                    in English, which is why at a glance it looks pretty real.”</p>
+                </div>
+              </div>
+            `
+          break;
+        case "2":
+          html = `
+            <div class="w-100" style="background-color: var(--mypurple); min-height: 100px; border-radius: 5px 5px 0 0;"></div>
+              <div class="text-center padding: 20px;">
+                <img src="../assets/profile-picture.png" alt="mdo" width="120" height="120" class="rounded-circle avatar"
+                  style="margin-top: -60px; border: 4px solid white">
+                <h3 style="margin: 10px 0 0 0;" >${profile.result.funcnome}</h3>
+                <img src="../icons/badge-a.png" style="display: inline-block;"><span id=""
+                  style="text-transform: uppercase; font-size: 13px;">Funcionário</span>
+                <hr style="color: var(--mypurple); height: 2px; opacity: 100%; width: 20%; margin-left: 40%;">
+              </div>
+              <div style="padding: 0 20px;">
+                <h6
+                  style="color: #707070; font-size: 11px; font-weight: bold; text-transform: uppercase; margin-bottom: 2px;">
+                  E-mail</h6>
+                <p style="font-size: 13px;" >${profile.result.funcemail}</p>
+                <hr>
+              </div>
+              <div style="padding: 0 20px;">
+                <h6 style="color: #707070; font-size: 11px; font-weight: bold; text-transform: uppercase;">Sobre</h6>
+                <p style="font-size: 13px;">Until recently, the prevailing view assumed lorem ipsum was born as a nonsense
+                  text. <br><br>“It's not Latin, though it looks like it, and it actually says nothing,” Before & After
+                  magazine answered a curious reader, “Its ‘words’ loosely approximate the frequency with which letters occur
+                  in English, which is why at a glance it looks pretty real.”</p>
+              </div>
+            </div>
+            `
+              break;
+            }
+            let html = `
+            <img src="../icons/icon-adm.png" style="display: inline-block;">
+            <span style="text-transform: uppercase; font-size: 13px;">
+            Cliente
+            </span>
+            <hr style="color: var(--mybluecyan); height: 2px; opacity: 100%; width: 20%; margin-left: 40%;">
+            `
+
+  }
+
+  if (profile.result.clienome) {
+    html = `
+      <div class="w-100" style="background-color: var(--mybluecyan); min-height: 100px; border-radius: 5px 5px 0 0;"></div>
+        <div class="text-center padding: 20px;">
+          <img src="../assets/profile-picture.png" alt="mdo" width="120" height="120" class="rounded-circle avatar"
+            style="margin-top: -60px; border: 4px solid white">
+          <h3 style="margin: 10px 0 0 0;">${profile.result.clienome}</h3>
+          <img src="../icons/icon-adm.png" style="display: inline-block;"><span id=""
+            style="text-transform: uppercase; font-size: 13px;">Cliente</span>
+          <hr style="color: var(--mybluecyan); height: 2px; opacity: 100%; width: 20%; margin-left: 40%;">
+        </div>
+        <div style="padding: 0 20px;">
+          <h6
+            style="color: #707070; font-size: 11px; font-weight: bold; text-transform: uppercase; margin-bottom: 2px;">
+            E-mail</h6>
+          <p style="font-size: 13px;" >${profile.result.clienemail}</p>
+          <hr>
+        </div>
+        <div style="padding: 0 20px;">
+          <h6 style="color: #707070; font-size: 11px; font-weight: bold; text-transform: uppercase;">Sobre</h6>
+          <p style="font-size: 13px;">Until recently, the prevailing view assumed lorem ipsum was born as a nonsense
+            text. <br><br>“It's not Latin, though it looks like it, and it actually says nothing,” Before & After
+            magazine answered a curious reader, “Its ‘words’ loosely approximate the frequency with which letters occur
+            in English, which is why at a glance it looks pretty real.”</p>
+        </div>
+      </div>
+    `
+  }
+
+  $('#panelProfile').html(html);
+
+}
+
+/* ---------- Product Functions ------------  */
+
 async function renderProducts() {
   let html;
   await $.get(`${api}/produto`, function(data, status) {
     
     data.forEach(product => {
+      editButtonIds.push(`product${product.prodid}`);
       html += `
         <tr>
         <th scope="row">${product.prodid}</th>
@@ -57,7 +173,7 @@ async function renderProducts() {
         </td>
         <td>
           <div class="btn-group">
-            <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            <button id=product${product.prodid} type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                 class="bi bi-pencil-square" viewBox="0 0 16 16" >
                 <path
@@ -93,6 +209,94 @@ async function renderProducts() {
 
   $('#productsTable').html(html);
 }
+
+async function handleCreateProduct(event) {
+  event.preventDefault();
+  
+  const postData = getProductModalInputs();
+
+  let request = $.post(`${api}/produto`, postData);
+  
+  request.done(function(data, status) {
+    if (data) {
+      alert('O produto foi criado!');
+    } else {
+      alert('Ocorreu um erro ao criar o produto.');
+    }
+  })
+  
+}
+
+async function handleUpdateProduct() {
+  const postData = getProductModalInputs();
+
+  let request = 
+    $.ajax({
+      url: `${api}/produto/${currentEditingId}`,
+      type: 'PUT',
+      data: postData
+    })
+
+  request.done(function(data, status) {
+    if (data) {
+      alert('O produto foi atualizado!');
+    } else {
+      alert('Ocorreu um erro ao atualizar o produto.');
+    }
+  })
+}
+
+function getProductModalInputs() {
+  const prodnome = $('#newProductName').val();
+  const prodqtd  = parseInt($('#newProductAmount').val());
+  const prodesc  = $('#newProductDescription').val();
+  const fornid   = parseInt($('#newProductSupplier').val());
+  const prodpre  = parseFloat($('#newProductPrice').val());
+  
+  const postData = 
+  {
+    prodnome: prodnome,
+    prodqtd: prodqtd,
+    prodesc: prodesc,
+    fornid: fornid,
+    prodpre: prodpre,
+    prodfoto: '../assets/guarana'
+  }
+
+  return postData;
+}
+
+async function openEditProductModal(id) {
+  $('#finishCreateProduct').hide();
+  $('#finishUpdateProduct').show();
+
+  const createProductForm = $('#createProductForm');
+
+  await $.get(`${api}/produto/?prodid=${id}`, function(data, status) {
+
+    const product = data[0];
+
+    createProductForm.find("input[name='newProductName']").val(product.prodnome);
+    createProductForm.find("input[name='newProductAmount']").val(product.prodqtd);
+    createProductForm.find("input[name='newProductDescription']").val(product.prodesc);
+    createProductForm.find("input[name='newProductSupplier']").val(product.fornid);
+    createProductForm.find("input[name='newProductPrice']").val(product.prodpre);
+  });
+
+}
+
+function addProductEditModalButtonEventListeners() {
+  editButtonIds.forEach(id => {
+    const productId = parseInt(id.match(/\d+/)[0]);
+    $(`#${id}`).on('click', () => {
+      currentEditingId = productId;
+      openEditProductModal(productId);
+    })
+  })
+}
+
+
+/* ---------- Employee Functions ---------- */
 
 async function renderEmployees() {
   let html;
@@ -144,6 +348,43 @@ async function renderEmployees() {
   $('#employeesTable').html(html);
 }
 
+async function handleCreateEmployee(event) {
+  event.preventDefault();
+  
+  const createEmployeeForm = $('#createEmployeeForm');
+
+  const funcnome = createEmployeeForm.find("input[name='newEmployeeName']").val();
+  const funcendere = createEmployeeForm.find("input[name='newEmployeeAddress']").val();
+  const funcnumero = createEmployeeForm.find("input[name='newEmployeeNumber']").val();
+  const funcemail = createEmployeeForm.find("input[name='newEmployeeEmail']").val();
+  const funuser = createEmployeeForm.find("input[name='newEmployeeUser']").val();
+  const funcsenha = createEmployeeForm.find("input[name='newEmployeePassword']").val();
+  const funusuario = parseInt(createEmployeeForm.find("select[name='newEmpoloyeePermission']").val());
+  
+  const postData = {
+    funcnome: funcnome,
+    funcendere: funcendere,
+    funcnumero: funcnumero,
+    funcemail: funcemail,
+    funuser: funuser,
+    funcsenha: funcsenha,
+    funusuario: funusuario
+  }
+  
+  let request = $.post(`${api}/funcionario`, postData);
+  
+  request.done(function(data, status) {
+    if (data) {
+      alert('O funcionário foi criado!');
+    } else {
+      alert('Ocorreu um erro ao criar o funcionário.');
+    }
+  })
+}
+
+
+/* ---------- Supplier Functions ---------- */
+
 async function renderSuppliers() {
   let html;
   await $.get(`${api}/fornecedor`, function(data, status) {
@@ -193,6 +434,37 @@ async function renderSuppliers() {
   $('#suppliersTable').html(html);
 }
 
+async function handleCreateSupplier(event) {
+  event.preventDefault();
+  
+  const createSupplierForm = $('#createSupplierForm');
+  
+  const fornnome = createSupplierForm.find("input[name='newSupplierName']").val();
+  const fornende = createSupplierForm.find("input[name='newSupplierAddress']").val();
+  const fornnume = createSupplierForm.find("input[name='newSupplierNumber']").val();
+  const fornemail = createSupplierForm.find("input[name='newSupplierEmail']").val();
+  
+  const postData = {
+    fornnome: fornnome,
+    fornende: fornende,
+    fornnume: fornnume,
+    fornemail: fornemail
+  }
+  
+  let request = $.post(`${api}/fornecedor`, postData);
+  
+  request.done(function(data, status) {
+    if (data) {
+      alert('O fornecedor foi criado!');
+    } else {
+      alert('Ocorreu um erro ao criar o fornecedor.');
+    }
+  })
+}
+
+
+/* ---------- Client Functions ---------- */
+
 async function renderClients() {
   let html;
   await $.get(`${api}/cliente`, function(data, status) {
@@ -214,141 +486,83 @@ async function renderClients() {
   $('#clientsTable').html(html);
 }
 
-async function handleCreateProduct(event) {
-  event.preventDefault();
-  const prodnome = $('#newProductName').val();
-  const prodqtd  = parseInt($('#newProductAmount').val());
-  const prodesc  = $('#newProductDescription').val();
-  const fornid   = parseInt($('#newProductSupplier').val());
-  const prodpre  = parseFloat($('#newProductPrice').val());
 
-  const postData = 
-  {
-    prodnome: prodnome,
-    prodqtd: prodqtd,
-    prodesc: prodesc,
-    fornid: fornid,
-    prodpre: prodpre,
-    prodfoto: '../assets/guarana'
-  }
 
-  let request = $.post(`${api}/produto`, postData);
-  
-  request.done(function(data, status) {
-    if (data) {
-      alert('O produto foi criado!');
-    } else {
-      alert('Ocorreu um erro ao criar o produto.');
-    }
-  })
-  
-}
-
-async function handleCreateEmployee(event) {
-  event.preventDefault();
-
-  const createEmployeeForm = $('#createEmployeeForm');
-
-  const funcnome = createEmployeeForm.find("input[name='newEmployeeName']").val();
-  const funcendere = createEmployeeForm.find("input[name='newEmployeeAddress']").val();
-  const funcnumero = createEmployeeForm.find("input[name='newEmployeeNumber']").val();
-  const funcemail = createEmployeeForm.find("input[name='newEmployeeEmail']").val();
-  const funuser = createEmployeeForm.find("input[name='newEmployeeUser']").val();
-  const funcsenha = createEmployeeForm.find("input[name='newEmployeePassword']").val();
-  const funusuario = parseInt(createEmployeeForm.find("select[name='newEmpoloyeePermission']").val());
-
-  const postData = {
-    funcnome: funcnome,
-    funcendere: funcendere,
-    funcnumero: funcnumero,
-    funcemail: funcemail,
-    funuser: funuser,
-    funcsenha: funcsenha,
-    funusuario: funusuario
-  }
-
-  let request = $.post(`${api}/funcionario`, postData);
-  
-  request.done(function(data, status) {
-    if (data) {
-      alert('O funcionário foi criado!');
-    } else {
-      alert('Ocorreu um erro ao criar o funcionário.');
-    }
-  })
-}
-
-async function handleCreateSupplier(event) {
-  event.preventDefault();
-
-  const createSupplierForm = $('#createSupplierForm');
-
-  const fornnome = createSupplierForm.find("input[name='newSupplierName']").val();
-  const fornende = createSupplierForm.find("input[name='newSupplierAddress']").val();
-  const fornnume = createSupplierForm.find("input[name='newSupplierNumber']").val();
-  const fornemail = createSupplierForm.find("input[name='newSupplierEmail']").val();
-
-  const postData = {
-    fornnome: fornnome,
-    fornende: fornende,
-    fornnume: fornnume,
-    fornemail: fornemail
-  }
-
-  let request = $.post(`${api}/fornecedor`, postData);
-  
-  request.done(function(data, status) {
-    if (data) {
-      alert('O fornecedor foi criado!');
-    } else {
-      alert('Ocorreu um erro ao criar o fornecedor.');
-    }
-  })
-}
 
 $(document).ready(function() {
 
   cart = JSON.parse(localStorage.getItem("cart"));
-
   const jsonCartKeys = localStorage.getItem("cartKeys");
   cartKeys = JSON.parse(jsonCartKeys);
+  profile = JSON.parse(localStorage.getItem("profile"));
 
-  const loggedIn = JSON.parse(localStorage.getItem("loggedIn"));
+
+  renderUserPermission();
 
   renderCart();
 
-
-  $('#panelUsername').text(loggedIn.username);
-  $('#panelEmail').text(loggedIn.email);
-
-  $('#nav-contact-tab').on('click', () => {
-    renderProducts();
+  $('#nav-contact-tab').on('click', async () => {
+    await renderProducts()
+      .then(() => {
+        addProductEditModalButtonEventListeners();
+      });
   });
 
   $('#nav-funcionario-tab').on('click', () => {
     renderEmployees();
-  })
+  });
 
   $('#nav-fornecedor-tab').on('click', () => {
     renderSuppliers();
-  })
+  });
 
   $('#nav-cliente-tab').on('click', () => {
     renderClients();
-  })
+  });
 
-/* -------------- Create Forms --------------  */
+/* -------------- Product Forms --------------  */
 
-  $('#createProductForm').submit(async function (event) {
+  $('#finishCreateProduct').on('click', async function (event) {
     await handleCreateProduct(event);
   });
 
-  $('#createEmployeeForm').submit(async function(event) {
+  $('#finishUpdateProduct').on('click', async function (event) {
+    event.preventDefault();
+    await handleUpdateProduct();
+  })
+
+/* -------------- Employee Forms --------------  */
+
+  $('#finishCreateEmployee').on('click', async function(event) {
     await handleCreateEmployee(event);
   });
+
+  $('#finishUpdateEmployee').on('click', async function(event) {
+    event.preventDefault();
+    await handleUpdateEmployee();
+  })
+
+
 
   $('#createSupplierForm').submit(async function(event) {
     await handleCreateSupplier(event);
   });
+
+
+
+ /* ----------- Open Create Modals ------------ */ 
+  $('#openCreateProductModal').on('click', () => {
+    $('#finishCreateProduct').show();
+    $('#finishUpdateProduct').hide();
+
+    $('#createProductForm input').val('');
+  });
+
+  $('#openCreateEmployeeModal').on('click', () => {
+    $('#finishCreateEmployee').show();
+    $('#finishUpdateEmployee').hide();
+
+    $('#openCreateEmployeeModal input').val('');
+  })
 
 });

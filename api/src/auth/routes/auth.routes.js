@@ -1,21 +1,48 @@
-const { verifySignUp } = require("../middleware");
-const controller = require("../controllers/auth.controller");
-module.exports = function(app) {
-  app.use(function(req, res, next) {
-    res.header(
-      "Access-Control-Allow-Headers",
-      "Origin, Content-Type, Accept"
-    );
-    next();
-  });
-  app.post(
-    "/api/auth/signup",
-    [
-      verifySignUp.checkDuplicateUsernameOrEmail,
-      verifySignUp.checkRolesExisted
-    ],
-    controller.signup
-  );
-  app.post("/api/auth/signin", controller.signin);
-  app.post("/api/auth/signout", controller.signout);
-};
+const express = require('express');
+require('dotenv').config();
+const jwt = require("jsonwebtoken");
+
+const authController = require("../controllers/auth.controller");
+
+const router = express.Router({ mergeParams: true });
+
+router.post("/signup", authController.signUp);
+
+router.post("/signin", authController.signIn);
+
+router.post("/generateToken", (req, res) => {
+  
+  let jwtSecretKey = process.env.JWT_SECRET_KEY;
+  let data = {
+    time: Date(),
+    userId: 12
+  }
+
+  const token = jwt.sign(data, jwtSecretKey);
+
+  res.send(token);
+
+});
+
+router.get("/validateToken", (req,res) => {
+
+  let tokenHeaderKey = process.env.TOKEN_HEADER_KEY;
+  let jwtSecretKey = process.env.JWT_SECRET_KEY;
+
+  try {
+    const token = req.header(tokenHeaderKey);
+
+    const verified = jwt.verify(token, jwtSecretKey);
+
+    if (verified) {
+      return res.send("Successfully Verified");
+    } else {
+      return res.status(401).send(error);
+    }
+  } catch (error) {
+    return res.status(401).send(error);
+  }
+
+});
+
+module.exports = router;

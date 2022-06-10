@@ -9,8 +9,8 @@ module.exports = {
 		})
 	},
 
-	findById(id, associations) {
-		return Produto.findByPk(id, associations);
+	findById(prodid) {
+		return Produto.findByPk(prodid);
 	},
 
 	create(data) {

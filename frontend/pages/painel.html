@@ -15,7 +15,7 @@
   <link href="../css/payment.css" rel="stylesheet">
   <script src="support.js"></script>
   <!-- Bootstrap+CSS -->
-  <script src="../js/bootstrap.min.js"></script>
+  <script src="../js/bootstrap/bootstrap.min.js"></script>
   <link href="../css/bootstrap.min.css" rel="stylesheet" >
 
   <!-- Importando fontes do google -->
@@ -204,31 +204,31 @@
 <div class="container">
   <div class="row">
     <div class="col-md-3">
-      <div class="shadow bg-white" style="margin-top: -200px; border-radius: 5px; height: auto; min-height: 800px;">
+      <div id="panelProfile" class="shadow bg-white" style="margin-top: -200px; border-radius: 5px; height: auto; min-height: 800px;">
         <div class="w-100" style="background-color: var(--myred); min-height: 100px; border-radius: 5px 5px 0 0;"></div>
-        <div class="text-center padding: 20px;">
-          <img src="../assets/profile-picture.png" alt="mdo" width="120" height="120" class="rounded-circle avatar"
-            style="margin-top: -60px; border: 4px solid white">
-          <h3 style="margin: 10px 0 0 0;">Victor Pires</h3>
-          <img src="icons/badge-adm.png" style="display: inline-block;"><span
-            style="text-transform: uppercase; font-size: 13px;">Administrador</span>
-          <hr style="color: var(--myred); height: 2px; opacity: 100%; width: 20%; margin-left: 40%;">
-        </div>
-        <div style="padding: 0 20px;">
-          <h6
-            style="color: #707070; font-size: 11px; font-weight: bold; text-transform: uppercase; margin-bottom: 2px;">
-            Usuário</h6>
-          <p style="font-size: 13px;" id="panelUsername">@iamVici</p>
-          <h6
-            style="color: #707070; font-size: 11px; font-weight: bold; text-transform: uppercase; margin-bottom: 2px;">
-            E-mail</h6>
-          <p style="font-size: 13px;" id="panelEmail">victorpires.camposs@gmail.com</p>
-          <h6
-            style="color: #707070; font-size: 11px; font-weight: bold; text-transform: uppercase; margin-bottom: 2px;">
-            Função</h6>
-          <p style="font-size: 13px;">WebDev - Tempo Integral</p>
-          <hr>
-        </div>
+          <div class="text-center padding: 20px;" id="panelProfileDiv">
+            <img src="../assets/profile-picture.png" alt="mdo" width="120" height="120" class="rounded-circle avatar"
+              style="margin-top: -60px; border: 4px solid white">
+            <h3 style="margin: 10px 0 0 0;" id="panelProfileName" >Victor Pires</h3>
+            <img src="../icons/badge-adm.png" style="display: inline-block;"><span id=""
+              style="text-transform: uppercase; font-size: 13px;">Administrador</span>
+            <hr style="color: var(--myred); height: 2px; opacity: 100%; width: 20%; margin-left: 40%;">
+          </div>
+          <div style="padding: 0 20px;">
+            <h6
+              style="color: #707070; font-size: 11px; font-weight: bold; text-transform: uppercase; margin-bottom: 2px;">
+              Usuário</h6>
+            <p style="font-size: 13px;" id="panelUsername">@iamVici</p>
+            <h6
+              style="color: #707070; font-size: 11px; font-weight: bold; text-transform: uppercase; margin-bottom: 2px;">
+              E-mail</h6>
+            <p style="font-size: 13px;" id="panelEmail">victorpires.camposs@gmail.com</p>
+            <h6
+              style="color: #707070; font-size: 11px; font-weight: bold; text-transform: uppercase; margin-bottom: 2px;">
+              Função</h6>
+            <p style="font-size: 13px;">WebDev - Tempo Integral</p>
+            <hr>
+          </div>
         <div style="padding: 0 20px;">
           <h6 style="color: #707070; font-size: 11px; font-weight: bold; text-transform: uppercase;">Sobre</h6>
           <p style="font-size: 13px;">Until recently, the prevailing view assumed lorem ipsum was born as a nonsense
@@ -276,7 +276,7 @@
                       <tr>
                         <div class="d-flex align-items-center"
                           style="display: inline-block; vertical-align:middle; padding: 3p; margin:4px">
-                          <td style="width: 2%;"><a href="#"><img src="icons/beer-offer.png" width="12px"
+                          <td style="width: 2%;"><a href="#"><img src="../icons/beer-offer.png" width="12px"
                                 style="margin: 0 0px; padding: 0;"></a></td>
                           <td style="width: 8%;"><span class="badge bg-success bg-opacity-10 text-success small">x
                               14</span></td>
@@ -292,7 +292,7 @@
                       <tr>
                         <div class="d-flex align-items-center"
                           style="display: inline-block; vertical-align:middle; padding: 4p; margin:4px">
-                          <td style="width: 2%;"><a href="#"><img src="icons/beer-offer.png" width="12px"
+                          <td style="width: 2%;"><a href="#"><img src="../icons/beer-offer.png" width="12px"
                                 style="margin: 0 0px; padding: 0;"></a></td>
                           <td style="width: 8%;"><span class="badge bg-success bg-opacity-10 text-success small">x
                               14</span></td>
@@ -308,7 +308,7 @@
                       <tr>
                         <div class="d-flex align-items-center"
                           style="display: inline-block; vertical-align:middle; padding: 4p; margin:4px">
-                          <td style="width: 2%;"><a href="#"><img src="icons/beer-offer.png" width="12px"
+                          <td style="width: 2%;"><a href="#"><img src="../icons/beer-offer.png" width="12px"
                                 style="margin: 0 0px; padding: 0;"></a></td>
                           <td style="width: 8%;"><span class="badge bg-success bg-opacity-10 text-success small">x
                               14</span></td>
@@ -324,7 +324,7 @@
                       <tr>
                         <div class="d-flex align-items-center"
                           style="display: inline-block; vertical-align:middle; padding: 4p; margin:4px">
-                          <td style="width: 2%;"><a href="#"><img src="icons/beer-offer.png" width="12px"
+                          <td style="width: 2%;"><a href="#"><img src="../icons/beer-offer.png" width="12px"
                                 style="margin: 0 0px; padding: 0;"></a></td>
                           <td style="width: 8%;"><span class="badge bg-success bg-opacity-10 text-success small ">x
                               14</span></td>
@@ -491,7 +491,7 @@
                   <div class="col-md-8">
                   </div>
                   <div class="col-md-4">
-                    <button type="button" class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    <button id="openCreateProductModal" type="button" class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#exampleModal">
                       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                         class="bi bi-plus-lg" viewBox="0 0 16 16">
                         <path fill-rule="evenodd"
@@ -513,14 +513,14 @@
                               <div class="row">
                                 <div class="col-md-6 mb-3">
                                   <label for="productName">Nome do Produto</label>
-                                  <input type="text" class="form-control" id="newProductName" placeholder="" value="" required="">
+                                  <input type="text" class="form-control" id="newProductName" name="newProductName">
                                   <div class="invalid-feedback">
                                     É preciso inserir seu nome para concluir o agendamento.
                                   </div>
                                 </div>
                                 <div class="col-md-6 mb-3">
                                   <label for="productAmount">Qtd. Em Estoque</label>
-                                  <input type="number" class="form-control" id="newProductAmount" placeholder="" value="" required="" >
+                                  <input type="number" class="form-control" id="newProductAmount" name="newProductAmount">
                                   <div class="invalid-feedback">
                                     É preciso inserir seu sobrenome para concluir o agendamento.
                                   </div>
@@ -528,8 +528,7 @@
                               </div>
                               <div class="mb-3">
                                 <label for="productDescription">Descrição</label>
-                                <input type="text" class="form-control" id="newProductDescription"
-                                  placeholder="Descrição do Produto" required="">
+                                <input type="text" class="form-control" id="newProductDescription" name="newProductDescription">
                                 <div class="invalid-feedback">
                                   É preciso inserir o endereço para concluir o agendamento.
                                 </div>
@@ -538,12 +537,12 @@
                                 <div class="col-md-8 mb-3">
                                   <div class="mb-3">
                                     <label for="productSupplier">Id do Fornecedor<span class="text-muted"></span></label>
-                                    <input type="number" class="form-control" id="newProductSupplier" >
+                                    <input type="number" class="form-control" id="newProductSupplier" name="newProductSupplier" >
                                   </div>
                                 </div>
                                 <div class="col-md-4">
                                   <label for="zip">Valor</label>
-                                  <input type="number" class="form-control" id="newProductPrice" placeholder="15.90" required="">
+                                  <input type="number" class="form-control" id="newProductPrice" name="newProductPrice">
                                   <div class="invalid-feedback">
                                     É preciso inserir o CEP para concluir o agendamento.
                                   </div>
@@ -551,7 +550,8 @@
                               </div>
                               <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                                <button type="submit" class="btn btn-primary" >Cadastrar</button>
+                                <button id="finishCreateProduct" class="btn btn-primary" >Cadastrar</button>
+                                <button id="finishUpdateProduct" class="btn btn-primary" >Atualizar</button>
                               </div>
                             </form>
                           </div>
@@ -644,7 +644,7 @@
                       <div class="col-md-8">
                       </div>
                       <div class="col-md-4">
-                        <button type="button" class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#exampleModal2">
+                        <button id="openCreateEmployeeModal" type="button" class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#exampleModal2">
                           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                             class="bi bi-plus-lg" viewBox="0 0 16 16">
                             <path fill-rule="evenodd"
@@ -721,7 +721,8 @@
                                         </div>
                                         <div class="modal-footer">
                                           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                                          <button type="submit" class="btn btn-primary">Cadastrar Funcionário</button>
+                                          <button id="finishCreateEmployee" class="btn btn-primary">Cadastrar</button>
+                                          <button id="finishUpdateEmployee" class="btn btn-primary" >Atualizar</button>
                                         </div>
                                 </form>
                               </div>
@@ -805,7 +806,7 @@
                           <div class="modal-dialog">
                             <div class="modal-content">
                               <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Adicionar Fornecedor</h5>
+                                <h5 class="modal-title" id="exampleModalLabel">Cadastrar Fornecedor</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                               </div>
                               <div class="modal-body">
@@ -842,7 +843,7 @@
                                   </div>
                                   <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                                    <button type="submit" class="btn btn-primary">Cadastrar fornecedor</button>
+                                    <button type="submit" class="btn btn-primary">Cadastrar</button>
                                   </div>
                                 </form>
                               </div>
@@ -943,9 +944,7 @@
 </div>
 <img class="hide w-100" src="../visual/paradise.gif">
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-  integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-<script src="js/bootstrap.bundle.min.js"></script>
+<script src="../js/bootstrap/bootstrap.bundle.min.js"></script>
 
 </body>
 

@@ -5,12 +5,14 @@ const { v4: uuidv4 } = require('uuid');
 
 class Cliente extends Model { }
 
-// Cliente.fields = [
-// 	"uuid",
-// 	"person_id",
-// 	"keycloak_id",
-// 	"enabled"
-// ];
+Cliente.fields = [
+	"clienome",
+	"clienendere",
+	"clienumero",
+	"clienascis",
+	"clienemail",
+	"cliensenha"
+];
 
 Cliente.init(
 	{
@@ -37,7 +39,7 @@ Cliente.init(
 			allowNull: false,
 		},
 		cliensenha: {
-			type: DataTypes.STRING(40),
+			type: DataTypes.STRING(255),
 			allowNull: false
 		}
 	},
