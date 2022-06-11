@@ -449,8 +449,11 @@ function getEmployeeModalInputs() {
 async function renderSuppliers() {
   let html;
   await $.get(`${api}/fornecedor`, function(data, status) {
-    
+
+    editButtonIds = [];
+
     data.forEach(supplier => {
+      editButtonIds.push(`supplier${supplier.fornid}`)
       html += `
         <tr>
           <th scope="row">${supplier.fornid}</th>
@@ -459,7 +462,7 @@ async function renderSuppliers() {
           <td>${supplier.fornnume}</td>
           <td>${supplier.fornemail}m</td>
           <td>
-            <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal3">
+            <button id=supplier${supplier.fornid} type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal3">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                 class="bi bi-pencil-square" viewBox="0 0 16 16">
                 <path
@@ -498,6 +501,67 @@ async function renderSuppliers() {
 async function handleCreateSupplier(event) {
   event.preventDefault();
   
+  const postData = getEmployeeModalInputs();
+  
+  let request = $.post(`${api}/fornecedor`, postData);
+  
+  request.done(function(data, status) {
+    if (data) {
+      alert('O fornecedor foi criado!');
+    } else {
+      alert('Ocorreu um erro ao criar o fornecedor.');
+    }
+  })
+}
+
+async function handleUpdateSupplier() {
+  const postData = getSupplierModalInputs();
+  
+  let request = 
+    $.ajax({
+      url: `${api}/fornecedor/${currentEditingId}`,
+      type: 'PUT',
+      data: postData
+    })
+
+  request.done(function(data, status) {
+    if (data) {
+      alert('O fornecedor foi atualizado!');
+    } else {
+      alert('Ocorreu um erro ao atualizar o fornecedor.');
+    }
+  })
+}
+
+async function openEditSupplierModal(id) {
+  $('#finishCreateSupplier').hide();
+  $('#finishUpdateSupplier').show();
+
+  const createSupplierForm = $('#createSupplierForm');
+
+  await $.get(`${api}/fornecedor/?fornid=${id}`, function(data, status) {
+    const supplier = data[0];
+
+    createSupplierForm.find("input[name='newSupplierName']").val(supplier.fornnome);
+    createSupplierForm.find("input[name='newSupplierNumber']").val(supplier.fornnume);
+    createSupplierForm.find("input[name='newSupplierAddress']").val(supplier.fornende);
+    createSupplierForm.find("input[name='newSupplierEmail']").val(supplier.fornemail);
+
+  });
+
+}
+
+function addSupplierEditModalButtonEventListeners() {
+  editButtonIds.forEach(id => {
+    const supplierid = parseInt(id.match(/\d+/)[0]);
+    $(`#${id}`).on('click', () => {
+      currentEditingId = supplierid;
+      openEditSupplierModal(supplierid);
+    })
+  })
+}
+
+function getSupplierModalInputs() {
   const createSupplierForm = $('#createSupplierForm');
   
   const fornnome = createSupplierForm.find("input[name='newSupplierName']").val();
@@ -511,18 +575,9 @@ async function handleCreateSupplier(event) {
     fornnume: fornnume,
     fornemail: fornemail
   }
-  
-  let request = $.post(`${api}/fornecedor`, postData);
-  
-  request.done(function(data, status) {
-    if (data) {
-      alert('O fornecedor foi criado!');
-    } else {
-      alert('Ocorreu um erro ao criar o fornecedor.');
-    }
-  })
-}
 
+  return postData;
+}
 
 /* ---------- Client Functions ---------- */
 
@@ -576,8 +631,11 @@ $(document).ready(function() {
       })
   });
 
-  $('#nav-fornecedor-tab').on('click', () => {
-    renderSuppliers();
+  $('#nav-fornecedor-tab').on('click', async () => {
+    await renderSuppliers()
+      .then(() => {
+        addSupplierEditModalButtonEventListeners();
+      })
   });
 
   $('#nav-cliente-tab').on('click', () => {
@@ -607,10 +665,16 @@ $(document).ready(function() {
   })
 
 
+/* ------------- Supplier Forms ---------------- */
 
-  $('#createSupplierForm').submit(async function(event) {
+  $('#finishCreateSupplier').on('click', async function(event) {
     await handleCreateSupplier(event);
   });
+
+  $('#finishUpdateSupplier').on('click', async function(event) {
+    event.preventDefault();
+    await handleUpdateSupplier();
+  })
 
 
 
@@ -627,6 +691,13 @@ $(document).ready(function() {
     $('#finishUpdateEmployee').hide();
 
     $('#openCreateEmployeeModal input').val('');
+  })
+
+  $('#openCreateSupplierModal').on('click', () => {
+    $('#finishCreateSupplier').show();
+    $('#finishUpdateSupplier').hide();
+
+    $('#openCreateSupplierModal input').val('');
   })
 
 });

@@ -16,6 +16,22 @@ module.exports = {
         }
     },
 
+    async getOne(req, res, next) {
+        try {
+            const { fornid } = req.query;
+            console.log(id);
+            const found = await supplierRepository.findById(fornid);
+            if (found) {
+                res.status(201).json(found);
+                return;
+            }
+            console.log('erro');
+            return;
+        } catch (error) {
+            console.error(error);
+        }
+    },
+
     async create(req, res, next) {
         try {
             const postData = req.body;
@@ -28,13 +44,13 @@ module.exports = {
 
     async update(req, res, next) {
         try {
-            const { id } = req.params;
-            const supplier = await supplierRepository.findById(id);
+            const { fornid } = req.params;
+            const supplier = await supplierRepository.findById(fornid);
             if (!supplier) {
                 console.log("not found");
                 return;
             }
-            const updated = await supplierRepository.update(transaction, req.body);
+            const updated = await supplierRepository.update(supplier, req.body);
             res.send(updated);
         } catch (error) {
           console.error(error);

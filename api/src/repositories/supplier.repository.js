@@ -1,23 +1,23 @@
 const { Op } = require("sequelize");
-const Funcionario = require("../models/supplier.model");
+const Fornecedor = require("../models/supplier.model");
 
 module.exports = {
 
 	findAll(params) {
-		return Funcionario.findAll({
+		return Fornecedor.findAll({
 			where: params
 		})
 	},
 
-	findById(id, associations) {
-		return Funcionario.findByPk(id, associations);
+	findById(fornid, associations) {
+		return Fornecedor.findByPk(fornid, associations);
 	},
 
 	create(data) {
-		return Funcionario.create(data, { fields: Funcionario.fields });
+		return Fornecedor.create(data, { fields: Fornecedor.fields });
 	},
 
-	update(funcionario, data) {
-		return funcionario.update(data);
+	update(fornecedor, data) {
+		return fornecedor.update(data);
 	}
 };

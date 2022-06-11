@@ -1,16 +1,14 @@
 const { Model, DataTypes } = require("sequelize");
 const sequelize = require("../infra/database/database");
 
-const { v4: uuidv4 } = require('uuid');
-
 class Fornecedor extends Model { }
 
-// Fornecedor.fields = [
-// 	"uuid",
-// 	"person_id",
-// 	"keycloak_id",
-// 	"enabled"
-// ];
+Fornecedor.fields = [
+	"fornnome",
+	"fornende",
+	"fornnume",
+	"fornemail"
+];
 
 Fornecedor.init(
 	{

@@ -8,10 +8,10 @@ const router = express.Router({ mergeParams: true });
 
 router.get('/', controller.getAll);
 
-// router.get('/:id', controller.getOne);
+router.get('/:fornid', controller.getOne);
 
 router.post('/', supplierValidation, validator, controller.create);
 
-router.put('/:id', supplierValidation, validator, controller.update);
+router.put('/:fornid', supplierValidation, validator, controller.update);
 
 module.exports = router;
