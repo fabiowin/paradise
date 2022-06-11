@@ -55,6 +55,22 @@ module.exports = {
         } catch (error) {
           console.error(error);
         }
+    },
+
+    async delete(req, res, next) {
+        try {
+            const { prodid } = req.params;
+            const product = await productRepository.findById(prodid);
+            if (!product) {
+                res.json({"message": "Product not found"});
+                return;
+            }
+            const deleted = await productRepository.delete(prodid);
+            const msg = deleted == 1 ? {"message": "Product was deleted"} : { "message": "Product not found." };
+            res.status(200).json(msg);
+        } catch (error) {
+            
+        }
     }
 
 }

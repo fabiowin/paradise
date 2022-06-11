@@ -296,7 +296,6 @@ function addProductEditModalButtonEventListeners() {
   })
 }
 
-
 /* ---------- Employee Functions ---------- */
 
 async function renderEmployees() {

@@ -19,5 +19,13 @@ module.exports = {
 
 	update(produto, data) {
 		return produto.update(data);
+	},
+
+	delete(prodid) {
+	  return Produto.destroy({
+			where: {
+				prodid: prodid 
+			}
+		})
 	}
 };
