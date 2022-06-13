@@ -55,6 +55,22 @@ module.exports = {
         } catch (error) {
           console.error(error);
         }
+    },
+
+    async delete(req, res, next) {
+        try {
+            const { fornid } = req.params;
+            const product = await supplierRepository.findById(fornid);
+            if (!product) {
+                res.json({"message": "Supplier not found"});
+                return;
+            }
+            const deleted = await supplierRepository.delete(fornid);
+            const msg = deleted == 1 ? {"message": "Supplier was deleted"} : { "message": "Supplier not found." };
+            res.status(200).json(msg);
+        } catch (error) {
+            
+        }
     }
 
 }

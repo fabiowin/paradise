@@ -14,4 +14,6 @@ router.post('/', supplierValidation, validator, controller.create);
 
 router.put('/:fornid', supplierValidation, validator, controller.update);
 
+router.delete('/:fornid', controller.delete);
+
 module.exports = router;

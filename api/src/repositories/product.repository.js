@@ -1,4 +1,3 @@
-const { Op } = require("sequelize");
 const Produto = require("../models/product.model");
 
 module.exports = {

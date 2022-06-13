@@ -63,6 +63,22 @@ module.exports = {
         } catch (error) {
           console.error(error);
         }
+    },
+
+    async delete(req, res, next) {
+        try {
+            const { funcid } = req.params;
+            const product = await employeeRepository.findById(funcid);
+            if (!product) {
+                res.json({"message": "Employee not found"});
+                return;
+            }
+            const deleted = await employeeRepository.delete(funcid);
+            const msg = deleted == 1 ? {"message": "Employee was deleted"} : { "message": "Employee not found." };
+            res.status(200).json(msg);
+        } catch (error) {
+            
+        }
     }
 
 }

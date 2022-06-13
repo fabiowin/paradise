@@ -19,5 +19,13 @@ module.exports = {
 
 	update(fornecedor, data) {
 		return fornecedor.update(data);
+	},
+
+	delete(fornid) {
+	  return Fornecedor.destroy({
+			where: {
+				fornid: fornid 
+			}
+		})
 	}
 };

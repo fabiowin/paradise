@@ -5,6 +5,7 @@ let cart;
 let cartKeys;
 let profile;
 let editButtonIds = [];
+let deleteButtonIds = [];
 
 /* ----------- Page Functions -------------- */
 
@@ -40,6 +41,9 @@ function renderCart() {
     { style: 'currency', currency: 'BRL' }
   ).format(totalPrice));
   
+  $('#finishSellForm').find('input[name="finishSellName"]').val(`${profile.result.clienome}`);
+  $('#finishSellForm').find('input[name="finishSellAddress"]').val(`${profile.result.clienendere}`);
+
 }
 
 function renderUserPermission() {
@@ -155,10 +159,12 @@ function renderUserPermission() {
 async function renderProducts() {
   let html;
   await $.get(`${api}/produto`, function(data, status) {
-    editButtonIds = [];
+    editButtonIds   = [];
+    deleteButtonIds = [];
     
     data.forEach(product => {
       editButtonIds.push(`product${product.prodid}`);
+      deleteButtonIds.push(`deleteProduct${product.prodid}`);
       html += `
         <tr>
         <th scope="row">${product.prodid}</th>
@@ -189,7 +195,7 @@ async function renderProducts() {
           </div>
         </td>
         <td>
-          <button type="button" class="btn btn-outline-secondary">
+          <button id=deleteProduct${product.prodid} type="button" class="btn btn-outline-secondary">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
               class="bi bi-x-square" viewBox="0 0 16 16">
               <path
@@ -296,16 +302,39 @@ function addProductEditModalButtonEventListeners() {
   })
 }
 
+function addProductDeleteButtonEventListeners() {
+  deleteButtonIds.forEach(id => {
+    const productId = parseInt(id.match(/\d+/)[0]);
+    $(`#${id}`).on('click', async () => {
+      await handleDeleteProduct(productId);
+    })
+  });
+}
+
+async function handleDeleteProduct(productId) {
+  let request = 
+    $.ajax({
+      url: `${api}/produto/${productId}`,
+      type: 'DELETE'
+    })
+
+  request
+    .done(() => alert('O produto foi deletado.'))
+    .fail(() => alert('Erro ao deletar produto.'));
+}
+
 /* ---------- Employee Functions ---------- */
 
 async function renderEmployees() {
   let html;
   await $.get(`${api}/funcionario`, function(data, status) {
     
-    editButtonIds = []
+    editButtonIds = [];
+    deleteButtonIds = [];
 
     data.forEach(employee => {
       editButtonIds.push(`employee${employee.funcid}`);
+      deleteButtonIds.push(`deleteEmployee${employee.funcid}`);
       html += `
         <tr>
         <th scope="row">${employee.funcid}</th>
@@ -328,7 +357,7 @@ async function renderEmployees() {
             </button>
         </td>
         <td>
-            <button type="button" class="btn btn-outline-secondary">
+            <button id="deleteEmployee${employee.funcid}" type="button" class="btn btn-outline-secondary">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                 class="bi bi-x-square" viewBox="0 0 16 16">
                 <path
@@ -443,6 +472,27 @@ function getEmployeeModalInputs() {
   return postData;
 }
 
+function addEmployeeDeleteButtonEventListeners() {
+  deleteButtonIds.forEach(id => {
+    const employeeId = parseInt(id.match(/\d+/)[0]);
+    $(`#${id}`).on('click', async () => {
+      await handleDeleteEmployee(employeeId);
+    })
+  });
+}
+
+async function handleDeleteEmployee(employeeId) {
+  let request = 
+    $.ajax({
+      url: `${api}/funcionario/${employeeId}`,
+      type: 'DELETE'
+    });
+
+  request
+    .done(() => alert('O funcionario foi deletado.'))
+    .fail(() => alert('Erro ao deletar funcionario.'));
+}
+
 /* ---------- Supplier Functions ---------- */
 
 async function renderSuppliers() {
@@ -450,18 +500,20 @@ async function renderSuppliers() {
   await $.get(`${api}/fornecedor`, function(data, status) {
 
     editButtonIds = [];
+    deleteButtonIds = [];
 
     data.forEach(supplier => {
-      editButtonIds.push(`supplier${supplier.fornid}`)
+      editButtonIds.push(`supplier${supplier.fornid}`);
+      deleteButtonIds.push(`deleteSupplier${supplier.fornid}`);
       html += `
         <tr>
           <th scope="row">${supplier.fornid}</th>
           <td>${supplier.fornnome}</td>
           <td>${supplier.fornende}</td>
           <td>${supplier.fornnume}</td>
-          <td>${supplier.fornemail}m</td>
+          <td>${supplier.fornemail}</td>
           <td>
-            <button id=supplier${supplier.fornid} type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal3">
+            <button id="supplier${supplier.fornid}" type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal3">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                 class="bi bi-pencil-square" viewBox="0 0 16 16">
                 <path
@@ -475,7 +527,7 @@ async function renderSuppliers() {
             </button>
           </td>
           <td>
-              <button type="button" class="btn btn-outline-secondary">
+              <button id="deleteSupplier${supplier.fornid}" type="button" class="btn btn-outline-secondary">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                   class="bi bi-x-square" viewBox="0 0 16 16">
                   <path
@@ -500,7 +552,7 @@ async function renderSuppliers() {
 async function handleCreateSupplier(event) {
   event.preventDefault();
   
-  const postData = getEmployeeModalInputs();
+  const postData = getSupplierModalInputs();
   
   let request = $.post(`${api}/fornecedor`, postData);
   
@@ -578,13 +630,33 @@ function getSupplierModalInputs() {
   return postData;
 }
 
+function addSupplierDeleteButtonEventListeners() {
+  deleteButtonIds.forEach(id => {
+    const supplierId = parseInt(id.match(/\d+/)[0]);
+    $(`#${id}`).on('click', async () => {
+      await handleDeleteSupplier(supplierId);
+    })
+  });
+}
+
+async function handleDeleteSupplier(supplierId) {
+  let request = 
+    $.ajax({
+      url: `${api}/fornecedor/${supplierId}`,
+      type: 'DELETE'
+    });
+
+  request
+    .done(() => alert('O fornecedor foi deletado.'))
+    .fail(() => alert('Erro ao deletar fornecedor.'));
+}
+
 /* ---------- Client Functions ---------- */
 
 async function renderClients() {
   let html;
   await $.get(`${api}/cliente`, function(data, status) {
     data.forEach(client => {
-      console.log(client);
       html += `
         <tr>
           <th scope="row">${client.clienid}</th>
@@ -620,6 +692,7 @@ $(document).ready(function() {
     await renderProducts()
       .then(() => {
         addProductEditModalButtonEventListeners();
+        addProductDeleteButtonEventListeners();
       });
   });
 
@@ -627,6 +700,7 @@ $(document).ready(function() {
     await renderEmployees()
       .then(() => {
         addEmployeeEditModalButtonEventListeners();
+        addEmployeeDeleteButtonEventListeners();
       })
   });
 
@@ -634,6 +708,7 @@ $(document).ready(function() {
     await renderSuppliers()
       .then(() => {
         addSupplierEditModalButtonEventListeners();
+        addSupplierDeleteButtonEventListeners();
       })
   });
 

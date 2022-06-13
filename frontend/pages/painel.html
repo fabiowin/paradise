@@ -13,7 +13,7 @@
   <!-- Meu arquivo css -->
   <link href="../css/badass.css" rel="stylesheet">
   <link href="../css/payment.css" rel="stylesheet">
-  <script src="support.js"></script>
+  <!-- <script src="../js/support.js"></script> -->
   <!-- Bootstrap+CSS -->
   <script src="../js/bootstrap/bootstrap.min.js"></script>
   <link href="../css/bootstrap.min.css" rel="stylesheet" >
@@ -25,7 +25,7 @@
 
   <!-- Nome do site -->
   <title>Paradise - First Page</title>
-  <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY&callback=myMap"></script>
+  <!-- <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY&callback=myMap"></script> -->
 
   <script src="../js/panelScripts.js" ></script>
 </head>
@@ -347,27 +347,17 @@
                   </ul>
                 </div>
                 <div class="col-md-8 order-md-1">
-                  <form class="needs-validation" novalidate="">
-                    <div class="row">
-                      <div class="col-md-6 mb-3">
-                        <label for="firstName">Nome</label>
-                        <input type="text" class="form-control" id="firstName" placeholder="" value="" required="">
-                        <div class="invalid-feedback">
-                          É preciso inserir seu nome para concluir o agendamento.
-                        </div>
-                      </div>
-                      <div class="col-md-6 mb-3">
-                        <label for="lastName">Sobrenome</label>
-                        <input type="text" class="form-control" id="lastName" placeholder="" value="" required="">
-                        <div class="invalid-feedback">
-                          É preciso inserir seu sobrenome para concluir o agendamento.
-                        </div>
+                  <form id="finishSellForm" class="needs-validation" novalidate="">
+                    <div class="mb-3">
+                      <label for="address">Nome</label>
+                      <input name="finishSellName" type="text" class="form-control" >
+                      <div class="invalid-feedback">
+                        É preciso inserir o endereço para concluir o agendamento.
                       </div>
                     </div>
                     <div class="mb-3">
                       <label for="address">Endereço</label>
-                      <input type="text" class="form-control" id="address"
-                        placeholder="Endereço: R. Maj. Sertório, 110 - Vila Buarque" required="">
+                      <input name="finishSellAddress" type="text" class="form-control" >
                       <div class="invalid-feedback">
                         É preciso inserir o endereço para concluir o agendamento.
                       </div>
@@ -375,13 +365,16 @@
                     <div class="row">
                       <div class="col-md-8 mb-3">
                         <div class="mb-3">
-                          <label for="address2">Complemento<span class="text-muted"> (Opcional)</span></label>
-                          <input type="text" class="form-control" id="address2" placeholder="Ap 18 Bloco 04">
+                          <label for="address2">Tipo de compra<span class="text-muted"></span></label><br/>
+                          <input name="finishSellType" type="radio" id="finishSellDelivery" value="entrega">
+                          <label for="finishSellDelivery">Entrega</label>
+                          <input name="finishSellType" type="radio" id="finishSellWithdraw" value="retirada">
+                          <label for="finishSellWithdraw">Retirada</label>
                         </div>
                       </div>
                       <div class="col-md-4">
-                        <label for="zip">Data</label>
-                        <input type="datetime" class="form-control" id="datetime" placeholder="30/06/2022" required="">
+                        <label for="zip">Data de agendamento</label>
+                        <input type="date" class="form-control" id="datetime" placeholder="30/06/2022" required="">
                         <div class="invalid-feedback">
                           É preciso inserir o CEP para concluir o agendamento.
                         </div>

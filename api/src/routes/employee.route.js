@@ -1,6 +1,4 @@
 const express = require("express");
-const fs = require("fs");
-const marked = require("marked");
 
 const { employeeValidation } = require("../validations/employee.validation");
 const validator = require("../infra/validations/validator");
@@ -15,5 +13,7 @@ router.get('/:funcid', controller.getOne);
 router.post('/', employeeValidation, validator, controller.create);
 
 router.put('/:funcid', employeeValidation, validator, controller.update);
+
+router.delete('/:funcid', controller.delete);
 
 module.exports = router;

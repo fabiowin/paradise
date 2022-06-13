@@ -1,4 +1,3 @@
-const { Op } = require("sequelize");
 const Funcionario = require("../models/employee.model");
 
 module.exports = {
@@ -27,5 +26,14 @@ module.exports = {
 
 	update(funcionario, data) {
 		return funcionario.update(data);
+	},
+
+	delete(funcid) {
+	  return Funcionario.destroy({
+			where: {
+				funcid: funcid 
+			}
+		})
 	}
+
 };
