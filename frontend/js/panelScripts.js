@@ -4,6 +4,7 @@ let currentEditingId;
 let cart;
 let cartKeys;
 let profile;
+let profileData;
 let editButtonIds = [];
 let deleteButtonIds = [];
 
@@ -48,19 +49,18 @@ function renderCart() {
 
 function renderUserPermission() {
   let html;
-
   
   $('#panelProfileBackgroundColor').css({"backgroud-color": "var(--mybluecyan)", "min-height": "100px", "border-radius": "5px 5px 0 0"});
   
-  if (profile.result.funusuario) {
+  if (profile.type === "employee") {
       switch (profile.result.funusuario) {
-        case "1":
+        case 1:
             html = `
               <div class="w-100" style="background-color: var(--myred); min-height: 100px; border-radius: 5px 5px 0 0;"></div>
                 <div class="text-center padding: 20px;">
                   <img src="../assets/profile-picture.png" alt="mdo" width="120" height="120" class="rounded-circle avatar"
                     style="margin-top: -60px; border: 4px solid white">
-                  <h3 style="margin: 10px 0 0 0;" >${profile.result.funcnome}</h3>
+                  <h3 style="margin: 10px 0 0 0;" >${profileData.funcnome}</h3>
                   <img src="../icons/badge-adm.png" style="display: inline-block;"><span id=""
                     style="text-transform: uppercase; font-size: 13px;">Administrador</span>
                   <hr style="color: var(--myred); height: 2px; opacity: 100%; width: 20%; margin-left: 40%;">
@@ -82,13 +82,13 @@ function renderUserPermission() {
               </div>
             `
           break;
-        case "2":
+        case 2:
           html = `
             <div class="w-100" style="background-color: var(--mypurple); min-height: 100px; border-radius: 5px 5px 0 0;"></div>
               <div class="text-center padding: 20px;">
                 <img src="../assets/profile-picture.png" alt="mdo" width="120" height="120" class="rounded-circle avatar"
                   style="margin-top: -60px; border: 4px solid white">
-                <h3 style="margin: 10px 0 0 0;" >${profile.result.funcnome}</h3>
+                <h3 style="margin: 10px 0 0 0;" >${profileData.funcnome}</h3>
                 <img src="../icons/badge-a.png" style="display: inline-block;"><span id=""
                   style="text-transform: uppercase; font-size: 13px;">Funcionário</span>
                 <hr style="color: var(--mypurple); height: 2px; opacity: 100%; width: 20%; margin-left: 40%;">
@@ -111,17 +111,17 @@ function renderUserPermission() {
             `
               break;
             }
-            let html = `
-            <img src="../icons/icon-adm.png" style="display: inline-block;">
-            <span style="text-transform: uppercase; font-size: 13px;">
-            Cliente
-            </span>
-            <hr style="color: var(--mybluecyan); height: 2px; opacity: 100%; width: 20%; margin-left: 40%;">
-            `
+            // let html = `
+            // <img src="../icons/icon-adm.png" style="display: inline-block;">
+            // <span style="text-transform: uppercase; font-size: 13px;">
+            // Cliente
+            // </span>
+            // <hr style="color: var(--mybluecyan); height: 2px; opacity: 100%; width: 20%; margin-left: 40%;">
+            // `
 
   }
 
-  if (profile.result.clienome) {
+  if (profile.type === "client") {
     html = `
       <div class="w-100" style="background-color: var(--mybluecyan); min-height: 100px; border-radius: 5px 5px 0 0;"></div>
         <div class="text-center padding: 20px;">
@@ -682,11 +682,23 @@ $(document).ready(function() {
   const jsonCartKeys = localStorage.getItem("cartKeys");
   cartKeys = JSON.parse(jsonCartKeys);
   profile = JSON.parse(localStorage.getItem("profile"));
-
+  profileData = profile.result;
 
   renderUserPermission();
 
   renderCart();
+
+  if (profile.type === "client") {
+    $('#nav-contact-tab').hide();
+    $('#nav-funcionario-tab').hide();
+    $('#nav-fornecedor-tab').hide();
+    $('#nav-cliente-tab').hide();
+    $('#nav-agenda-tab').hide();
+  }
+  if (profile.type === "employee") {
+    $('#nav-profile-tab').hide();
+    $('#nav-profile').hide();
+  }
 
   $('#nav-contact-tab').on('click', async () => {
     await renderProducts()
@@ -765,13 +777,25 @@ $(document).ready(function() {
     $('#finishUpdateEmployee').hide();
 
     $('#openCreateEmployeeModal input').val('');
-  })
+  });
 
   $('#openCreateSupplierModal').on('click', () => {
     $('#finishCreateSupplier').show();
     $('#finishUpdateSupplier').hide();
 
     $('#openCreateSupplierModal input').val('');
-  })
+  });
+
+/* ---------- Cart Form Buttons ------------ */
+
+  $('#finishSellForm').on('submit', event => {
+    event.preventDefault();
+  });
+
+  $('#finishSellCancelButton').on('click', () => {
+    localStorage.removeItem('cart');
+    localStorage.removeItem('cartKeys');
+    window.location.replace('./firstpage.html')
+  });
 
 });

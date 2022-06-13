@@ -11,16 +11,16 @@ $(document).ready(function() {
     
     const user = $('#floatingInput').val();
     const pass = $('#floatingPassword').val();
+    const userType = $('#loginForm').find('input[name="loginUserType"]:checked').val()
     
     $.post("http://localhost:3020/auth/signin",
     {
       clienemail: user,
-      cliensenha: pass
+      cliensenha: pass,
+      userType: userType
     },
     function(data, status){
-      console.log(status);
       if(data){
-        console.log(data);
         localStorage.setItem('profile', JSON.stringify(data));
         window.location.replace("http://localhost:5500/frontend/pages/firstpage.html");
       }

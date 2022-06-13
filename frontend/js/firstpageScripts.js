@@ -128,9 +128,10 @@ $(document).ready(async function() {
   await renderProducts();
 
   const profile = JSON.parse(localStorage.getItem("profile"));
-  $('#profileName').text(profile.result.clienome);
-  $('#cartProfileName').text(profile.result.clienome);
-  $('#cartProfileEmail').text(profile.result.clienemail);
+  const profileData = profile.result;
+  $('#profileName').text(profileData.clienome || profileData.funcnome);
+  $('#cartProfileName').text(profileData.clienome || profileData.funcnome);
+  $('#cartProfileEmail').text(profileData.clienemail || profileData.funcemail);
 
   $('#logoutButton').on('click', () => {
     localStorage.clear();

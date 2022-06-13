@@ -58,9 +58,11 @@
             <input name="password" type="password" class="form-control" id="floatingPassword" placeholder="Password">
             <label for="floatingPassword">Senha</label>
           </div>
-          <div class="checkbox mb-3">
+          <div class="radio mb-3">
+            <span>Tipo de usuario:</span>
             <label>
-              <input type="checkbox" value="remember-me"> Lembrar de mim
+              <input name="loginUserType" type="radio" value="cliente" id="loginUserClient"> Cliente</input>
+              <input name="loginUserType" type="radio" value="funcionario" id="loginUserEmployee"> Funcionario</input>
             </label>
             <br>
           </div>
