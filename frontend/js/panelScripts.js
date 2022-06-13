@@ -267,7 +267,7 @@ function getProductModalInputs() {
     prodesc: prodesc,
     fornid: fornid,
     prodpre: prodpre,
-    prodfoto: '../assets/guarana'
+    prodfoto: '../assets/guarana.webp'
   }
 
   return postData;
