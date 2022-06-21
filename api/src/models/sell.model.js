@@ -38,6 +38,7 @@ Venda.init(
 );
 
 Venda.belongsTo(Cliente, {
+	sourceKey: "clienid",
 	foreignKey: "clienid",
 	allowNull: false
 });

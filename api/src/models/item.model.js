@@ -3,9 +3,12 @@ const sequelize = require("../infra/database/database");
 const Venda = require("../models/sell.model");
 const Produto = require("../models/product.model");
 
-const { v4: uuidv4 } = require('uuid');
-
 class Item extends Model { }
+
+Item.fields = [
+	"venid",
+	"prodid"
+]
 
 Item.init(
 	{
@@ -25,18 +28,20 @@ Item.init(
 	},
 	{
 		sequelize: sequelize,
-		tableName: "Item",
+		tableName: "Itens",
 		modelName: "Item",
 		timestamps: false
 	}
 );
 
 Item.belongsTo(Venda, {
+	sourceKey: "venid",
 	foreignKey: "venid",
 	allowNull: false
 });
 
 Item.belongsTo(Produto, {
+	sourceKey: "prodid",
   foreignKey: "prodid",
   allowNull: false
 })

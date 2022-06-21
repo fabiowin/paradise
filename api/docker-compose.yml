@@ -34,7 +34,7 @@ services:
       dockerfile: Dockerfile    
     image: paradise_db
     container_name: paradise_db
-    restart: always
+    restart: unless-stopped
     env_file: .env
     environment:
       - MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD
@@ -48,7 +48,7 @@ services:
   paradise_adminer:
     image: adminer
     container_name: paradise_adminer
-    restart: always
+    restart: unless-stopped
     ports: 
       - 8088:8080    
     networks:

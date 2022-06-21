@@ -111,14 +111,6 @@ function renderUserPermission() {
             `
               break;
             }
-            // let html = `
-            // <img src="../icons/icon-adm.png" style="display: inline-block;">
-            // <span style="text-transform: uppercase; font-size: 13px;">
-            // Cliente
-            // </span>
-            // <hr style="color: var(--mybluecyan); height: 2px; opacity: 100%; width: 20%; margin-left: 40%;">
-            // `
-
   }
 
   if (profile.type === "client") {
@@ -673,6 +665,55 @@ async function renderClients() {
   $('#clientsTable').html(html);
 }
 
+/* ----------- Sell Functions ------------ */
+
+async function handleCreateSell() {
+
+  const itemsOnCart = [];
+  const getItemsOnCart = () => {
+    cartKeys.forEach(product => {
+      if (cart[product].cartQuantity > 0) itemsOnCart.push(cart[product].prodid);
+    })
+  }
+  getItemsOnCart();
+
+  const venretirada = $('#finishSellForm').find('input[name="finishSellType"]:checked').val();
+  const vendata = new Date();
+  const venagendamento = $('#finishSellForm').find('input[name="finishSellDate"]').val();
+  const clienid = profileData.clienid;
+
+  const sellPostData = {
+    venretirada: venretirada,
+    vendata: vendata,
+    venagendamento: venagendamento,
+    clienid: clienid
+  };
+
+  
+  let sellRequest = $.post(`${api}/venda`, sellPostData);
+  
+  sellRequest
+  .done((data) => {
+
+    itemsOnCart.forEach(item => {
+      const itemsPostData = {
+        venid: data.venid,
+        prodid: item
+      }
+      let itemsRequest = $.post(`${api}/item`, itemsPostData);
+
+      itemsRequest
+        .done(() => console.log(`Item #${item} inserido na venda.`))
+        .fail(() => console.log(`Falha ao inserir item #${item} na venda.`));
+
+    });
+
+  })
+    .fail(() => {
+      alert("Erro ao finalizar venda!");
+    });
+
+}
 
 
 
@@ -762,6 +803,11 @@ $(document).ready(function() {
     await handleUpdateSupplier();
   })
 
+/* ------------- Sell Forms ------------------- */
+
+  $('#finishSellButton').on('click', async () => {
+    await handleCreateSell();
+  })
 
 
  /* ----------- Open Create Modals ------------ */ 
@@ -797,5 +843,15 @@ $(document).ready(function() {
     localStorage.removeItem('cartKeys');
     window.location.replace('./firstpage.html')
   });
+
+  $('#finishSellButton').on('click', () => {
+    if (!($('#finishSellForm').find('input[name="finishSellType"]:checked').val())) {
+      alert('Selecione tipo de compra.');
+    } else if (!($('#finishSellForm').find('input[name="finishSellDate"]').val())) {
+      alert('Selecione a data do agendamento.');
+    } else {
+      alert('O agendamento foi realizado!');
+    }
+  })
 
 });

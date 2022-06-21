@@ -10,8 +10,8 @@ router.get('/', controller.getAll);
 
 // router.get('/:id', controller.getOne);
 
-router.post('/', sellValidation, validator, controller.create);
+router.post('/', controller.create);
 
-router.put('/:id', sellValidation, validator, controller.update);
+router.put('/:id', controller.update);
 
 module.exports = router;
